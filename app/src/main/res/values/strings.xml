@@ -37,7 +37,7 @@
     <string name="beschrijving_voor_n_het_raadsel">beschrijving voor\n het raadsel</string>
     <string name="status">status hotter then hell</string>
     <string name="compass_not_available">compas pas beschikbaar als je binnen 350 meter van de locatie bevind met status \'hotter than hell\'</string>
-    <string name="direction_hint">richting NW -40 graden</string>
+    <string name="direction_hint">richting NW 320 graden</string>
     <string name="Search">Zoeken</string>
     <string name="vriendschap_verzoeken">vriendschap verzoeken</string>
     <string name="action">actie</string>
@@ -49,4 +49,5 @@
     <string name="LogOut">uitloggen</string>
     <string name="Locations_Visited">Locaties bezocht</string>
     <string name="score">Score: 200</string>
+    <string name="hintwithnumber">Hint 1</string>
 </resources>
