@@ -1,3 +1,52 @@
 <resources>
     <string name="app_name">Location Hunter</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="UserName">Gebruikers naam</string>
+    <string name="Password">Wachtwoord</string>
+    <string name="SignIn">inloggen</string>
+    <string name="SignUp">aanmelden</string>
+    <string name="RepeatPassword">herhaal wachtwoord</string>
+    <string name="back">terug</string>
+    <string name="title_activity_overview_acitivity">OverviewAcitivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="name">Naam</string>
+    <string name="points">punten te behalen: </string>
+    <string name="title_activity_riddle">RiddleActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="Hints">Hints</string>
+    <string name="compass">compas</string>
+    <string name="beschrijving_voor_n_het_raadsel">beschrijving voor\n het raadsel</string>
+    <string name="status">status hotter then hell</string>
+    <string name="compass_not_available">compas pas beschikbaar als je binnen 350 meter van de locatie bevind met status \'hotter than hell\'</string>
+    <string name="direction_hint">richting NW 23 graden</string>
+    <string name="Search">Zoeken</string>
+    <string name="vriendschap_verzoeken">vriendschap verzoeken</string>
+    <string name="action">actie</string>
+    <string name="Send">verstuur</string>
+    <string name="Deny">Weigeren</string>
+    <string name="Accept">Accepteren</string>
+    <string name="Friends">Vrienden</string>
+    <string name="Requests">Verzoeken</string>
+    <string name="LogOut">uitloggen</string>
+    <string name="Locations_Visited">Locaties bezocht</string>
+    <string name="score">Score</string>
 </resources>
