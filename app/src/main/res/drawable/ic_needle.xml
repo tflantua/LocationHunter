@@ -9,7 +9,7 @@
       android:strokeAlpha="0.8955824"
       android:strokeLineJoin="miter"
       android:strokeWidth="0.264583"
-      android:strokeColor="#000000"
+      android:strokeColor="#00000000"
       android:strokeLineCap="butt">
     <aapt:attr name="android:fillColor">
       <gradient 
@@ -28,7 +28,7 @@
       android:strokeAlpha="0"
       android:strokeLineJoin="miter"
       android:strokeWidth="0.264583"
-      android:strokeColor="#000000"
+      android:strokeColor="#00000000"
       android:strokeLineCap="butt">
     <aapt:attr name="android:fillColor">
       <gradient 
@@ -47,7 +47,7 @@
       android:strokeAlpha="0.8032129"
       android:strokeLineJoin="miter"
       android:strokeWidth="0.263552"
-      android:strokeColor="#000000"
+      android:strokeColor="#00000000"
       android:strokeLineCap="butt">
     <aapt:attr name="android:fillColor">
       <gradient 
@@ -66,7 +66,7 @@
       android:strokeAlpha="0"
       android:strokeLineJoin="miter"
       android:strokeWidth="0.263552"
-      android:strokeColor="#000000"
+      android:strokeColor="#00000000"
       android:strokeLineCap="butt">
     <aapt:attr name="android:fillColor">
       <gradient 

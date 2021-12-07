@@ -14,21 +14,17 @@
 
             <ImageButton
                 android:id="@+id/accountInfo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_margin="5dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_launcher_foreground"
-                app:layout_constraintBottom_toTopOf="@id/guideline"
+                app:layout_constraintHeight_percent="0.1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintGuide_percent="0.15" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/RecycleView"
@@ -37,7 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/guideline" />
+                app:layout_constraintTop_toBottomOf="@id/accountInfo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

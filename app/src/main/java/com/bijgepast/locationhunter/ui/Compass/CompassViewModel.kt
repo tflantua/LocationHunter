@@ -1,10 +1,10 @@
-package com.bijgepast.locationhunter.ui.home
+package com.bijgepast.locationhunter.ui.Compass
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class CompassViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

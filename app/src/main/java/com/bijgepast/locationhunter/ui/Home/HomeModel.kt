@@ -1,10 +1,10 @@
-package com.bijgepast.locationhunter.ui.dashboard
+package com.bijgepast.locationhunter.ui.Home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class HomeModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"
