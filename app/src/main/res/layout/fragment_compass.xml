@@ -16,9 +16,16 @@
         android:layout_margin="10dp"/>
 
     <ImageView
+        android:layout_margin="20dp"
+        android:rotation="0"
+        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_compas"/>
+
     <ImageView
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_needle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
