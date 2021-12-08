@@ -3,9 +3,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="loginData"
             type="com.bijgepast.locationhunter.LoginFragment" />
+
+        <variable
+            name="loginModel"
+            type="com.bijgepast.locationhunter.ui.models.LoginModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -24,6 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:clickable="@{!loginModel.isLoading}"
                 android:hint="@string/UserName"
                 android:minHeight="48dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -37,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:clickable="@{!loginModel.isLoading}"
                 android:hint="@string/Password"
                 android:inputType="textPassword"
                 android:minHeight="48dp"
@@ -49,6 +57,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:clickable="@{!loginModel.isLoading}"
                 android:onClick="@{() -> loginData.login()}"
                 android:text="@string/SignIn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,11 +69,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:clickable="@{!loginModel.isLoading}"
                 android:onClick="@{() -> loginData.signup()}"
                 android:text="@string/SignUp"
                 app:layout_constraintEnd_toStartOf="@id/LoginButton"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/Password" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{loginModel.isLoading ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/LoginButton" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
