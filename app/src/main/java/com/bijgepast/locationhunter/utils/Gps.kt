@@ -13,3 +13,7 @@ fun getStatusFromDistance(distance: UInt): DistanceStatus {
 
     return distanceStatus;
 }
+
+fun bearingToDegrees(bearing: Float): Float {
+    return (bearing + 360) % 360    
+}

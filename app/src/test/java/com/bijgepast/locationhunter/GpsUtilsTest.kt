@@ -1,6 +1,7 @@
 package com.bijgepast.locationhunter
 
 import com.bijgepast.locationhunter.enums.DistanceStatus
+import com.bijgepast.locationhunter.utils.bearingToDegrees
 import com.bijgepast.locationhunter.utils.getStatusFromDistance
 import org.junit.Test
 
@@ -21,5 +22,12 @@ class GpsUtilsTest {
         assert(getStatusFromDistance(DistanceStatus.VERY_HOT.DistanceInMeters) == DistanceStatus.VERY_HOT)
 
         assert(getStatusFromDistance(DistanceStatus.HOTTER_THEN_HELL.DistanceInMeters) == DistanceStatus.HOTTER_THEN_HELL)
+    }
+
+    @Test
+    fun bearingTest(){
+        assert(bearingToDegrees(-30f) == 330f)
+
+        assert(bearingToDegrees(30f) ==  30f)
     }
 }

@@ -1,9 +1,6 @@
 package com.bijgepast.locationhunter.adapters
 
-import android.content.Context
 import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -11,7 +8,24 @@ import android.widget.ImageView
 
 import androidx.databinding.BindingAdapter
 import com.bijgepast.locationhunter.R
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.util.Log
+import android.widget.SeekBar
+
+import android.widget.SeekBar.OnSeekBarChangeListener
+
+import androidx.databinding.InverseBindingListener
+
+import androidx.databinding.adapters.SeekBarBindingAdapter.OnProgressChanged
+
+import androidx.databinding.adapters.SeekBarBindingAdapter.OnStopTrackingTouch
+
+import androidx.databinding.adapters.SeekBarBindingAdapter.OnStartTrackingTouch
+
 import com.google.android.material.slider.Slider
+import java.util.function.Function
+import kotlin.math.roundToLong
 
 @BindingAdapter("isUnlocked")
 fun setSendState(v: ImageView, isUnlocked: Boolean) {

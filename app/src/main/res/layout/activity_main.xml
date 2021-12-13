@@ -8,23 +8,23 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <!--todo change from progress bar to image view and use binding adapter to start animation-->
+<!--        <ProgressBar-->
+<!--            android:id="@+id/color"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:indeterminateDrawable="@drawable/compas_loading_icon"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.4" />-->
 
-        <ProgressBar
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:indeterminateDrawable="@drawable/rotating_animation_needle"
-            app:layout_constraintBottom_toBottomOf="@id/color"
-            app:layout_constraintEnd_toEndOf="@id/color"
-            app:layout_constraintStart_toStartOf="@id/color"
-            app:layout_constraintTop_toTopOf="@id/color" />
-
-
-        <ProgressBar
-            android:id="@+id/color"
+        <ImageView
+            android:id="@+id/image"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:indeterminateDrawable="@drawable/rotating_animation_compas"
+            android:src="@drawable/compas_loading_icon"
+            app:startAnimation="@{true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
