@@ -11,30 +11,23 @@ class RiddleModel(
     val RiddleName: String,
     val riddle: String,
     val difficulty: Int,
-    private val hints: List<HintModel>,
+    val hints: List<HintModel>,
     private val points: Int,
-    private var distanceStatus: DistanceStatus
+    private var distanceStatus: DistanceStatus,
+    private var completed: Boolean
 ) : BaseObservable(), Serializable {
 
-    private var selectedHint: Int = -1;
-
     @Bindable
-    fun getHint(): HintModel? {
-        return if (selectedHint > -1 && selectedHint < this.hints.size)
-            this.hints[selectedHint]
-        else null
+    fun getCompleted(): Boolean {
+        return this.completed
     }
 
     @Bindable
-    fun getSelectedHint(): Int {
-        return selectedHint
-    }
-
-    @Bindable
-    fun setSelectedHint(index: Int) {
-        this.selectedHint = index
-        notifyPropertyChanged(BR.selectedHint)
-        notifyPropertyChanged(BR.hint)
+    fun setCompleted(boolean: Boolean) {
+        if (!this.completed) {
+            this.completed = boolean
+            notifyPropertyChanged(BR.completed)
+        }
     }
 
     @Bindable
@@ -46,6 +39,11 @@ class RiddleModel(
         }
 
         return 10.coerceAtLeast(points)
+    }
+
+    @Bindable
+    fun getPointSting(): String{
+        return "reward: $points"
     }
 
     @Bindable

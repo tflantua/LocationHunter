@@ -3,6 +3,10 @@
 
     <data>
 
+        <import type="android.content.Intent" />
+
+        <import type="com.bijgepast.locationhunter.adapters.BindingAdaptersKt" />
+
         <variable
             name="activity"
             type="android.app.Activity" />
@@ -32,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:onClick="@{() -> activity.onBackPressed() }"
+                android:onClick="@{() ->  activity.finish() }"
                 android:text="@string/back"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -42,7 +46,7 @@
                 android:id="@+id/Score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(riddleModel.points)}"
+                android:text="@{riddleModel.pointSting}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/accountInfo"
                 app:layout_constraintStart_toEndOf="@id/BackButton"
@@ -54,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
+                android:onClick="@{() -> BindingAdaptersKt.startActivity(activity, `#Intent;component=com.bijgepast.locationhunter/.UserActivity;end`, 0)}"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_twotone_account_circle_24"

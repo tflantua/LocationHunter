@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".UserActivity">
+<layout>
 
-    <Button
-        android:id="@+id/BackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <TextView
-        android:id="@+id/Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/UserName"
-        app:layout_constraintBottom_toBottomOf="@id/BackButton"
-        app:layout_constraintEnd_toStartOf="@id/LogOut"
-        app:layout_constraintStart_toEndOf="@id/BackButton"
-        app:layout_constraintTop_toTopOf="@id/BackButton" />
+        <variable
+            name="activity"
+            type="com.bijgepast.locationhunter.UserActivity" />
 
-    <Button
-        android:id="@+id/LogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/LogOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <variable
+            name="userModel"
+            type="com.bijgepast.locationhunter.models.UserModel" />
+    </data>
 
-    <TextView
-        android:id="@+id/LocationsVisited"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/Locations_Visited"
-        app:layout_constraintBottom_toTopOf="@id/Score"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Name"
-        app:layout_constraintVertical_bias="0.2" />
-
-<!--  TODO  kaart waarop pins staan van locaties waar je bent geweest, Google of andere api voor gebruiken-->
-    <ImageView
-        android:id="@+id/kaart_met_locatie_pins"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="20dp"
-        app:layout_constraintBottom_toTopOf="@id/Score"
-        app:layout_constraintTop_toBottomOf="@id/LocationsVisited" />
+        android:layout_height="match_parent"
+        tools:context=".UserActivity">
 
-    <TextView
-        android:id="@+id/Score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/score"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/Friends"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        <Button
+            android:id="@+id/BackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:onClick="@{() -> activity.onBackPressed()}"
+            android:text="@string/back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/Friends"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="@string/Friends"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.2" />
+        <TextView
+            android:id="@+id/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{userModel.userName}"
+            app:layout_constraintBottom_toBottomOf="@id/BackButton"
+            app:layout_constraintEnd_toStartOf="@id/LogOut"
+            app:layout_constraintStart_toEndOf="@id/BackButton"
+            app:layout_constraintTop_toTopOf="@id/BackButton" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/LogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:onClick="@{() -> activity.logOff()}"
+            android:text="@string/LogOut"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/LocationsVisited"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@string/Locations_Visited"
+            app:layout_constraintBottom_toTopOf="@id/Score"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Name"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <!--  TODO  kaart waarop pins staan van locaties waar je bent geweest, Google of andere api voor gebruiken-->
+        <ImageView
+            android:id="@+id/kaart_met_locatie_pins"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+            app:layout_constraintBottom_toTopOf="@id/Score"
+            app:layout_constraintTop_toBottomOf="@id/LocationsVisited" />
+
+        <TextView
+            android:id="@+id/Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="@{String.valueOf(userModel.score)}"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@id/Friends"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <Button
+            android:id="@+id/Friends"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:onClick="@{() -> activity.navigateFriends()}"
+            android:text="@string/Friends"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -14,11 +14,18 @@
         <!-- Customize your theme here. -->
         <item name="background"> @color/white</item>
     </style>
+
     <style name="Theme.LocationHunter.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Theme.LocationHunter.AppBarOverlay"
         parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.LocationHunter.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">#737373</item>
+        <item name="colorControlActivated">@color/purple_500</item>
+    </style>
 </resources>

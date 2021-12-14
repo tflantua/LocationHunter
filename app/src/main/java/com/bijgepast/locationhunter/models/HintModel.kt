@@ -7,6 +7,7 @@ import java.io.Serializable
 
 class HintModel(
     private var unLocked: Boolean,
+    private var show: Boolean,
     val hint: String,
     val cost: Int
 ) : BaseObservable(), Serializable {
@@ -18,11 +19,23 @@ class HintModel(
 
     @Bindable
     fun setUnlocked(unlocked: Boolean) {
-        if(this.unLocked)
+        if (this.unLocked)
             return
         this.unLocked = unlocked
         notifyPropertyChanged(BR.unlocked)
         notifyPropertyChanged(BR.points)
+        notifyPropertyChanged(BR.pointSting)
+    }
+
+    @Bindable
+    fun getShow(): Boolean {
+        return this.show
+    }
+
+    @Bindable
+    fun setShow(show: Boolean) {
+        this.show = show
+        notifyPropertyChanged(BR.show)
     }
 
 }

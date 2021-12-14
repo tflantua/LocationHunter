@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,6 +8,7 @@
             type="com.bijgepast.locationhunter.models.RiddleModel" />
     </data>
 
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -15,9 +16,12 @@
         tools:context=".ui.Hints.HintsFragment">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hints_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="20dp" />
-
+            android:layout_margin="20dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/hint_list_item" />
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

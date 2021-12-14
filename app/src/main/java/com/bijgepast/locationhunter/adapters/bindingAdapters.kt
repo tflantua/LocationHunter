@@ -1,31 +1,17 @@
 package com.bijgepast.locationhunter.adapters
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
+import android.util.Log
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
-
 import androidx.databinding.BindingAdapter
 import com.bijgepast.locationhunter.R
-import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
-import android.widget.SeekBar
 
-import android.widget.SeekBar.OnSeekBarChangeListener
-
-import androidx.databinding.InverseBindingListener
-
-import androidx.databinding.adapters.SeekBarBindingAdapter.OnProgressChanged
-
-import androidx.databinding.adapters.SeekBarBindingAdapter.OnStopTrackingTouch
-
-import androidx.databinding.adapters.SeekBarBindingAdapter.OnStartTrackingTouch
-
-import com.google.android.material.slider.Slider
-import java.util.function.Function
-import kotlin.math.roundToLong
+fun startActivity(activity: Activity, url: String, flags: Int) {
+    activity.startActivity(Intent.parseUri(url, flags))
+}
 
 @BindingAdapter("isUnlocked")
 fun setSendState(v: ImageView, isUnlocked: Boolean) {
@@ -40,9 +26,9 @@ fun goneUnless(view: View, visible: Boolean) {
 }
 
 @BindingAdapter("startAnimation")
-fun animation(v: ImageView, boolean: Boolean){
+fun animation(v: ImageView, boolean: Boolean) {
     Log.d(null, "start Animation was called")
-    if(v.drawable is AnimationDrawable){
+    if (v.drawable is AnimationDrawable) {
         val a = v.drawable as AnimationDrawable
         a.start()
     }

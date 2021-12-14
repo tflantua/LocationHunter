@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="hintModel"
+            type="com.bijgepast.locationhunter.models.HintModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -11,50 +20,72 @@
             android:id="@+id/Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/hintwithnumber"
-            android:text=""
-            android:textSize="30dp"
-            app:layout_constraintBottom_toBottomOf="@id/image"
+            android:text="@{hintModel.unlocked ? `unlocked` : `locked` }"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@id/hidden_field"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/ScoreCosts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
             android:hint="-10"
-            android:inputType="number"
-            app:layout_constraintBottom_toBottomOf="@id/image"
+            android:text="@{String.valueOf(hintModel.cost)}"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toTopOf="@id/hidden_field"
             app:layout_constraintEnd_toStartOf="@id/image"
-            app:layout_constraintStart_toEndOf="@id/Name"
-            app:layout_constraintTop_toTopOf="@id/image" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!--        TODO bind isUnlocked with actual state so the images switches-->
         <ImageView
             android:id="@+id/image"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            app:isUnlocked="@{true}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:isUnlocked="@{hintModel.unlocked}"
+            app:layout_constraintBottom_toTopOf="@id/hidden_field"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/ic_outline_lock_24" />
 
-        <!--        TODO bind visibility with actual state so the text can be displayed-->
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:hint="description of the hint"
-            android:visibility="gone"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/hidden_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:visibility="@{hintModel.show ? View.VISIBLE: View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            app:layout_constraintTop_toBottomOf="@id/image" />
+            <TextView
+                android:id="@+id/hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="description of the hint"
+                android:text="@{hintModel.hint}"
+                android:visibility="@{hintModel.unlocked ? View.VISIBLE : View.GONE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/unlock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> hintModel.setUnlocked(true)}"
+                android:text="Unlock"
+                android:visibility="@{hintModel.unlocked ? View.GONE : View.VISIBLE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

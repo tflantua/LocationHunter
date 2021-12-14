@@ -25,9 +25,11 @@ class CompassFragment : Fragment() {
     ): View? {
         riddleViewModel = ViewModelProvider(this.requireActivity())[RiddleViewModel::class.java]
 
-
         _binding = FragmentCompassBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.riddleModel = this.riddleViewModel.getRiddles().value
+
 
         return root
     }

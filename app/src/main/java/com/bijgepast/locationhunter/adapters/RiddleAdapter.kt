@@ -34,14 +34,15 @@ class RiddleAdapter(
     class RiddleViewHolder(
         private val binding: ViewDataBinding,
         private val listener: OnItemClick,
-        private val riddle: RiddleModel
+        private var riddle: RiddleModel
     ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         init {
             this.itemView.setOnClickListener(this)
         }
 
         fun bind(riddle: RiddleModel) {
-            this.binding.setVariable(BR.riddleModel, riddle)
+            this.riddle = riddle
+            this.binding.setVariable(BR.riddleModel, this.riddle)
         }
 
 

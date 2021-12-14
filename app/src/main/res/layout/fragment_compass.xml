@@ -3,6 +3,10 @@
 
     <data>
 
+        <import type="com.bijgepast.locationhunter.enums.DistanceStatus" />
+
+        <import type="android.view.View" />
+
         <variable
             name="riddleModel"
             type="com.bijgepast.locationhunter.models.RiddleModel" />
@@ -15,38 +19,44 @@
         android:layout_height="match_parent"
         tools:context=".ui.Compass.CompassFragment">
 
-        <TextView
-            android:id="@+id/currentDirection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="@string/direction_hint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/compass"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="40dp"
-            android:rotation="40"
-            android:src="@drawable/ic_compas"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/needle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_needle"
-            app:layout_constraintBottom_toBottomOf="@id/compass"
-            app:layout_constraintEnd_toEndOf="@id/compass"
-            app:layout_constraintStart_toStartOf="@id/compass"
-            app:layout_constraintTop_toTopOf="@id/compass" />
+            android:visibility="@{riddleModel.status == DistanceStatus.HOTTER_THEN_HELL ? View.VISIBLE : View.GONE }">
+
+            <TextView
+                android:id="@+id/currentDirection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="@string/direction_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/compass"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="40dp"
+                android:rotation="40"
+                android:src="@drawable/ic_compas"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/needle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_needle"
+                app:layout_constraintBottom_toBottomOf="@id/compass"
+                app:layout_constraintEnd_toEndOf="@id/compass"
+                app:layout_constraintStart_toStartOf="@id/compass"
+                app:layout_constraintTop_toTopOf="@id/compass" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/text_home"
@@ -56,7 +66,7 @@
             android:text="@string/compass_not_available"
             android:textAlignment="center"
             android:textSize="20sp"
-            android:visibility="invisible"
+            android:visibility="@{riddleModel.status != DistanceStatus.HOTTER_THEN_HELL ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
