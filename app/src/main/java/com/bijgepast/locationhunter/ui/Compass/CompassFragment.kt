@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bijgepast.locationhunter.databinding.FragmentCompassBinding
+import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
 
 class CompassFragment : Fragment() {
 
-    private lateinit var compassViewModel: CompassViewModel
+    private lateinit var riddleViewModel: RiddleViewModel
     private var _binding: FragmentCompassBinding? = null
 
     // This property is only valid between onCreateView and
@@ -22,8 +23,8 @@ class CompassFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        compassViewModel =
-            ViewModelProvider(this).get(CompassViewModel::class.java)
+        riddleViewModel = ViewModelProvider(this.requireActivity())[RiddleViewModel::class.java]
+
 
         _binding = FragmentCompassBinding.inflate(inflater, container, false)
         val root: View = binding.root

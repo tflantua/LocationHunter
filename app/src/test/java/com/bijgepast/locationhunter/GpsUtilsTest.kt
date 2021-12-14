@@ -15,7 +15,7 @@ class GpsUtilsTest {
 
         assert(getStatusFromDistance(DistanceStatus.COLD.DistanceInMeters) == DistanceStatus.COLD)
 
-        assert(getStatusFromDistance(DistanceStatus.NORMAL.DistanceInMeters) == DistanceStatus.NORMAL)
+        assert(getStatusFromDistance(DistanceStatus.ROOM_TEMPERATURE.DistanceInMeters) == DistanceStatus.ROOM_TEMPERATURE)
 
         assert(getStatusFromDistance(DistanceStatus.HOT.DistanceInMeters) == DistanceStatus.HOT)
 

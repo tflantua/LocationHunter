@@ -11,7 +11,7 @@
 
         <variable
             name="loginModel"
-            type="com.bijgepast.locationhunter.ui.models.LoginModel" />
+            type="com.bijgepast.locationhunter.models.LoginModel" />
     </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

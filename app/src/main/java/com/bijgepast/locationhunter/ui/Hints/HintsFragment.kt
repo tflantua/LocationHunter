@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bijgepast.locationhunter.databinding.FragmentHintsBinding
+import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
 
 class HintsFragment : Fragment() {
 
-    private lateinit var hintsViewModel: HintsViewModel
+    private lateinit var riddleViewModel: RiddleViewModel
     private var _binding: FragmentHintsBinding? = null
 
     // This property is only valid between onCreateView and
@@ -22,8 +23,8 @@ class HintsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        hintsViewModel =
-            ViewModelProvider(this).get(HintsViewModel::class.java)
+        riddleViewModel = ViewModelProvider(this.requireActivity())[RiddleViewModel::class.java]
+
 
         _binding = FragmentHintsBinding.inflate(inflater, container, false)
         val root: View = binding.root

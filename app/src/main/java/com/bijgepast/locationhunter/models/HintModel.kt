@@ -3,12 +3,13 @@ package com.bijgepast.locationhunter.models
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
+import java.io.Serializable
 
 class HintModel(
     private var unLocked: Boolean,
     val hint: String,
     val cost: Int
-) : BaseObservable() {
+) : BaseObservable(), Serializable {
 
     @Bindable
     fun getUnlocked(): Boolean {

@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bijgepast.locationhunter.databinding.FragmentHomeBinding
+import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
+
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeModel: HomeModel
+    private lateinit var riddleViewModel: RiddleViewModel
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
@@ -22,12 +24,11 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        homeModel =
-            ViewModelProvider(this)[HomeModel::class.java]
+        riddleViewModel = ViewModelProvider(this.requireActivity())[RiddleViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.riddleModel = riddleViewModel.getRiddles().value
         val root: View = binding.root
-
 
         return root
     }

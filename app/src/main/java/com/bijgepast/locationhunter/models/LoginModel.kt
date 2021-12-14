@@ -1,4 +1,4 @@
-package com.bijgepast.locationhunter.ui.models
+package com.bijgepast.locationhunter.models
 
 import android.app.Activity
 import android.content.Context

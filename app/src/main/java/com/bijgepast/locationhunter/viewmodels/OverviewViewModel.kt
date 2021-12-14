@@ -1,4 +1,4 @@
-package com.bijgepast.locationhunter
+package com.bijgepast.locationhunter.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

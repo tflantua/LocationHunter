@@ -1,3 +1,5 @@
 package com.bijgepast.locationhunter.models
 
-class LocationModel(val north: Double, val west: Double, val Name: String)
+import java.io.Serializable
+
+class LocationModel(val north: Double, val west: Double, val Name: String): Serializable

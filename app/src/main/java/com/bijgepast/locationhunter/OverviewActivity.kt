@@ -1,13 +1,16 @@
 package com.bijgepast.locationhunter
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bijgepast.locationhunter.adapters.RiddleAdapter
+import com.bijgepast.locationhunter.enums.DistanceStatus
 import com.bijgepast.locationhunter.models.LocationModel
 import com.bijgepast.locationhunter.models.RiddleModel
+import com.bijgepast.locationhunter.viewmodels.OverviewViewModel
 
 class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
 
@@ -16,7 +19,6 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         overviewViewModel = ViewModelProvider(this)[OverviewViewModel::class.java]
-
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview)
@@ -42,54 +44,65 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
         value.add(
             RiddleModel(
                 LocationModel(0.0, 0.0, "ZeroPoint"),
+                "Ocean",
                 "The start point",
                 3,
                 ArrayList(),
-                300
+                300,
+                DistanceStatus.HOT
             )
         )
         value.add(
             RiddleModel(
                 LocationModel(0.0, 0.0, "ZeroPoint"),
+                "Ocean",
                 "The start point",
                 3,
                 ArrayList(),
-                300
+                300,
+                DistanceStatus.HOT
             )
         )
         value.add(
             RiddleModel(
                 LocationModel(0.0, 0.0, "ZeroPoint"),
+                "Ocean",
                 "The start point",
                 3,
                 ArrayList(),
-                300
+                300,
+                DistanceStatus.HOT
             )
         )
         value.add(
             RiddleModel(
                 LocationModel(0.0, 0.0, "ZeroPoint"),
+                "Ocean",
                 "The start point",
                 3,
                 ArrayList(),
-                300
+                300,
+                DistanceStatus.HOT
             )
         )
         value.add(
             RiddleModel(
                 LocationModel(0.0, 0.0, "ZeroPoint"),
+                "Ocean",
                 "The start point",
                 3,
                 ArrayList(),
-                300
+                300,
+                DistanceStatus.HOT
             )
         )
         return value
     }
 
     override fun onClick(riddle: RiddleModel) {
-//        TODO("Not yet implemented")
         Log.d(null, "Clicked on riddle")
-        println("Clicked")
+        val intent = Intent(this, RiddleActivity::class.java)
+        intent.putExtra("riddle", riddle)
+        startActivity(intent)
     }
 }

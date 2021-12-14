@@ -12,7 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.bijgepast.locationhunter.databinding.FragmentLoginBinding
 import com.bijgepast.locationhunter.interfaces.CallbackListener
-import com.bijgepast.locationhunter.ui.models.LoginModel
+import com.bijgepast.locationhunter.models.LoginModel
 import com.bijgepast.locationhunter.utils.ApiHandler
 import com.google.gson.JsonObject
 
