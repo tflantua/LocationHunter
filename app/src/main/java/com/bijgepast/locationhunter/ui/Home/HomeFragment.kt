@@ -6,18 +6,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bijgepast.locationhunter.BuildConfig.SEARCH_API_KEY
 import com.bijgepast.locationhunter.databinding.FragmentHomeBinding
 import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
+import com.bijgepast.locationhunter.R
+import com.bijgepast.locationhunter.utils.GpsManager
+import com.bijgepast.locationhunter.utils.TomTomManager
+import com.tomtom.online.sdk.common.location.LatLng
+import com.tomtom.online.sdk.location.Locations
+import com.tomtom.online.sdk.location.Locations.AMSTERDAM
+import com.tomtom.online.sdk.map.*
+import com.tomtom.online.sdk.routing.OnlineRoutingApi
+import com.tomtom.online.sdk.routing.ev.RouteDescriptor
+import com.tomtom.online.sdk.routing.route.RouteSpecification
+import com.tomtom.online.sdk.search.OnlineSearchApi
 
 
 class HomeFragment : Fragment() {
 
+    private lateinit var mapView: MapView
     private lateinit var riddleViewModel: RiddleViewModel
     private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private var tomTomManager: TomTomManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,10 +41,52 @@ class HomeFragment : Fragment() {
         riddleViewModel = ViewModelProvider(this.requireActivity())[RiddleViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        mapView = binding.tomtomMap
+
+        this.tomTomManager = TomTomManager(requireContext(), riddleViewModel.getGpsManager()!!)
+
+        mapView.addOnMapReadyCallback(this.tomTomManager!!)
+
         binding.riddleModel = riddleViewModel.getRiddles().value
+
+        binding.button.setOnClickListener {
+            tomTomManager!!.search("Reeweg Oost 82")
+        }
+
         val root: View = binding.root
 
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mapView.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onHostSaveInstanceState()
+    }
+
+    override fun onPause() {
+        mapView.onPause()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        mapView.onStop()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        mapView.onDestroy()
+        super.onDestroy()
     }
 
     override fun onDestroyView() {

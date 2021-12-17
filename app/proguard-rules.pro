@@ -12,6 +12,11 @@
 #   public *;
 #}
 
+-repackageclasses com.tomtom.online.sdk.common.internal
+-keep public class com.tomtom.online.sdk.common.** {
+    public protected *;
+}
+
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable

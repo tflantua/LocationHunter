@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tomtom="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -35,10 +35,25 @@
             android:text="@{riddleModel.riddle}"
             android:textAlignment="center"
             android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/Status"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/Name" />
+
+
+        <com.tomtom.online.sdk.map.MapView
+            android:id="@+id/tomtom_map"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="20dp"
+
+            app:layout_constraintBottom_toTopOf="@id/Status"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/riddle"
+
+            tomtom:mapsApiKey="AP1jNZ5uzFm201rNfeXVWSjXk1eIL394"
+            tomtom:trafficApiKey="AP1jNZ5uzFm201rNfeXVWSjXk1eIL394" />
+
 
         <TextView
             android:id="@+id/Status"
@@ -48,6 +63,13 @@
             android:text="@{riddleModel.statusString}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
 
