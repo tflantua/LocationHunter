@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bijgepast.locationhunter.databinding.ActivityRiddleBinding
 import com.bijgepast.locationhunter.models.RiddleModel
+import com.bijgepast.locationhunter.utils.GpsManager
 import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -24,6 +25,10 @@ class RiddleActivity : AppCompatActivity() {
 
         if (this.riddleViewModel.getRiddles().value == null)
             riddleViewModel.setRiddles(riddleModel!!)
+        if (this.riddleViewModel.getGpsManager() == null) {
+            riddleViewModel.setGpsManager(GpsManager(this))
+            riddleViewModel.getGpsManager()!!.addListener(riddleModel!!)
+        }
 
         super.onCreate(savedInstanceState)
 

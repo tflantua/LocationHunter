@@ -1,10 +1,16 @@
 package com.bijgepast.locationhunter.models
 
+import android.location.Location
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+
 import com.bijgepast.locationhunter.BR
 import com.bijgepast.locationhunter.enums.DistanceStatus
+import com.bijgepast.locationhunter.utils.GpsManager
+import com.bijgepast.locationhunter.utils.getStatusFromDistance
+
 import java.io.Serializable
+
 
 class RiddleModel(
     val locationModel: LocationModel,
@@ -15,7 +21,7 @@ class RiddleModel(
     private val points: Int,
     private var distanceStatus: DistanceStatus,
     private var completed: Boolean
-) : BaseObservable(), Serializable {
+) : BaseObservable(), Serializable, GpsManager.GpsCallback {
 
     @Bindable
     fun getCompleted(): Boolean {
@@ -42,7 +48,7 @@ class RiddleModel(
     }
 
     @Bindable
-    fun getPointSting(): String{
+    fun getPointSting(): String {
         return "reward: $points"
     }
 
@@ -62,5 +68,14 @@ class RiddleModel(
         notifyPropertyChanged(BR.status)
         notifyPropertyChanged(BR.statusString)
     }
+
+
+
+    override fun updateLocation(long: Double, lat: Double) {
+        val floatArray: FloatArray = FloatArray(3)
+        Location.distanceBetween(lat, long, locationModel.north, locationModel.east, floatArray)
+        this.setStatus(getStatusFromDistance(floatArray[0]))
+    }
+
 
 }

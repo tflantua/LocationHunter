@@ -3,12 +3,16 @@ package com.bijgepast.locationhunter
 import com.bijgepast.locationhunter.enums.DistanceStatus
 import com.bijgepast.locationhunter.utils.bearingToDegrees
 import com.bijgepast.locationhunter.utils.getStatusFromDistance
+import org.junit.Assert
 import org.junit.Test
+import java.lang.IllegalArgumentException
 
 class GpsUtilsTest {
 
     @Test
     fun DistanceTest() {
+        Assert.assertThrows(IllegalArgumentException::class.java) { getStatusFromDistance(-500f) }
+
         assert(getStatusFromDistance(DistanceStatus.FROZEN.DistanceInMeters) == DistanceStatus.FROZEN)
 
         assert(getStatusFromDistance(DistanceStatus.VERY_COLD.DistanceInMeters) == DistanceStatus.VERY_COLD)
@@ -25,9 +29,9 @@ class GpsUtilsTest {
     }
 
     @Test
-    fun bearingTest(){
+    fun bearingTest() {
         assert(bearingToDegrees(-30f) == 330f)
 
-        assert(bearingToDegrees(30f) ==  30f)
+        assert(bearingToDegrees(30f) == 30f)
     }
 }

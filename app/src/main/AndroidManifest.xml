@@ -40,7 +40,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
         </activity>
     </application>
 
