@@ -28,7 +28,7 @@ class CompassFragment : Fragment() {
         _binding = FragmentCompassBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.riddleModel = this.riddleViewModel.getRiddles().value
+        binding.riddleModel = this.riddleViewModel.getRiddle().value
 
 
         return root

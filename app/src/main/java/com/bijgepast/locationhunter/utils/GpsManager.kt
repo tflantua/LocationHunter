@@ -31,7 +31,11 @@ class GpsManager(private val context: Activity) : LocationListener {
                 1
             )
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10f, this)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, this)
+
+        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null)
+            onLocationChanged(location)
     }
 
     fun addListener(listener: GpsCallback) {
@@ -43,11 +47,11 @@ class GpsManager(private val context: Activity) : LocationListener {
     }
 
     interface GpsCallback {
-        fun updateLocation(long: Double, lat: Double)
+        fun updateLocation(location: Location)
     }
 
     override fun onLocationChanged(location: Location) {
-        this.listeners.forEach { l -> l.updateLocation(location.longitude, location.latitude) }
+        this.listeners.forEach { l -> l.updateLocation(location) }
     }
 
     override fun onProviderEnabled(provider: String) {

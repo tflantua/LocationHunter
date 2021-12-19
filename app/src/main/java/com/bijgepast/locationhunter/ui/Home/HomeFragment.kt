@@ -6,20 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.bijgepast.locationhunter.BuildConfig.SEARCH_API_KEY
 import com.bijgepast.locationhunter.databinding.FragmentHomeBinding
 import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
-import com.bijgepast.locationhunter.R
-import com.bijgepast.locationhunter.utils.GpsManager
 import com.bijgepast.locationhunter.utils.TomTomManager
-import com.tomtom.online.sdk.common.location.LatLng
-import com.tomtom.online.sdk.location.Locations
-import com.tomtom.online.sdk.location.Locations.AMSTERDAM
 import com.tomtom.online.sdk.map.*
-import com.tomtom.online.sdk.routing.OnlineRoutingApi
-import com.tomtom.online.sdk.routing.ev.RouteDescriptor
-import com.tomtom.online.sdk.routing.route.RouteSpecification
-import com.tomtom.online.sdk.search.OnlineSearchApi
 
 
 class HomeFragment : Fragment() {
@@ -48,7 +38,7 @@ class HomeFragment : Fragment() {
 
         mapView.addOnMapReadyCallback(this.tomTomManager!!)
 
-        binding.riddleModel = riddleViewModel.getRiddles().value
+        binding.riddleModel = riddleViewModel.getRiddle().value
 
         binding.button.setOnClickListener {
             tomTomManager!!.search("Reeweg Oost 82")

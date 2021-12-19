@@ -5,7 +5,6 @@ import com.bijgepast.locationhunter.utils.bearingToDegrees
 import com.bijgepast.locationhunter.utils.getStatusFromDistance
 import org.junit.Assert
 import org.junit.Test
-import java.lang.IllegalArgumentException
 
 class GpsUtilsTest {
 
@@ -27,6 +26,33 @@ class GpsUtilsTest {
 
         assert(getStatusFromDistance(DistanceStatus.HOTTER_THEN_HELL.DistanceInMeters) == DistanceStatus.HOTTER_THEN_HELL)
     }
+
+    @Test
+    fun radiansToDegrees() {
+        var r = calculateDegrees(Math.PI)
+        r = calculateDegrees(Math.PI/2)
+        r = calculateDegrees(Math.PI*2)
+        r = calculateDegrees(Math.PI/2*3)
+        r = calculateDegrees(Math.PI/16*9)
+        r = calculateDegrees(Math.PI/153*120)
+        r = calculateDegrees(Math.PI/30*12)
+        r = calculateDegrees(Math.PI/40*17)
+        r = calculateDegrees(-Math.PI/50*57)
+
+        assert(true)
+
+    }
+
+    fun calculateDegrees(res: Double) : Double {
+
+        var result = res + (2 * Math.PI)
+        result %= (2 * Math.PI)
+
+        result *= 180
+        result /= Math.PI
+        return result
+    }
+
 
     @Test
     fun bearingTest() {

@@ -51,7 +51,7 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
         val value: MutableList<RiddleModel> = ArrayList(5)
         value.add(
             RiddleModel(
-                LocationModel(51.80222128490443, 4.7076075239683, "ZeroPoint"),
+                LocationModel(51.8082965490191, 4.6812008910206195, "ZeroPoint"),
                 "Ocean",
                 "The start point",
                 6,

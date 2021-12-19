@@ -29,10 +29,10 @@ class HintsFragment : Fragment() {
         _binding = FragmentHintsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.riddleModel = riddleViewModel.getRiddles().value
+        binding.riddleModel = riddleViewModel.getRiddle().value
 
         val hintsAdapter: HintsAdapter =
-            HintsAdapter(this.riddleViewModel.getRiddles().value!!.hints)
+            HintsAdapter(this.riddleViewModel.getRiddle().value!!.hints)
 
         binding.hintsRecyclerview.adapter = hintsAdapter
 

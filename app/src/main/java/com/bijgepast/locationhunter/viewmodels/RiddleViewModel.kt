@@ -18,11 +18,11 @@ class RiddleViewModel : ViewModel() {
         this.gpsManager = gpsManager
     }
     
-    fun setRiddles(routeModel: RiddleModel) {
+    fun setRiddle(routeModel: RiddleModel) {
         riddleModel.value = routeModel
     }
 
-    fun getRiddles(): LiveData<RiddleModel> {
+    fun getRiddle(): LiveData<RiddleModel> {
         return riddleModel
     }
 }

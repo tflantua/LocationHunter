@@ -1,6 +1,7 @@
 package com.bijgepast.locationhunter.utils
 
 import android.content.Context
+import android.location.Location
 import com.tomtom.online.sdk.common.location.LatLng
 import com.tomtom.online.sdk.map.OnMapReadyCallback
 import com.tomtom.online.sdk.map.TomtomMap
@@ -28,7 +29,7 @@ class TomTomManager(private val context: Context, private val gpsManager: GpsMan
         gpsManager.addListener(this)
     }
 
-    override fun updateLocation(long: Double, lat: Double) {
+    override fun updateLocation(location: Location) {
         tomtomMap?.centerOnMyLocation()
     }
 

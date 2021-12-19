@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="@string/direction_hint"
+                android:hint="@{String.valueOf(riddleModel.targetDegrees)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -39,11 +39,12 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="40dp"
-                android:rotation="40"
                 android:src="@drawable/ic_compas"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:currentRotation="@{riddleModel.currentNorthRotation}"
+                app:newRotation="@{(-riddleModel.northDegrees)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,10 +53,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_needle"
+                app:currentRotation="@{riddleModel.currentDegrees}"
                 app:layout_constraintBottom_toBottomOf="@id/compass"
                 app:layout_constraintEnd_toEndOf="@id/compass"
                 app:layout_constraintStart_toStartOf="@id/compass"
-                app:layout_constraintTop_toTopOf="@id/compass" />
+                app:layout_constraintTop_toTopOf="@id/compass"
+                app:newRotation="@{(-riddleModel.northDegrees) - riddleModel.targetDegrees}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -78,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="@string/status"
+            android:text="@string/status"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
