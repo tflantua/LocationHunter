@@ -29,7 +29,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:hint="@{String.valueOf(riddleModel.targetDegrees)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -43,8 +42,7 @@
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:currentRotation="@{riddleModel.currentNorthRotation}"
-                app:newRotation="@{(-riddleModel.northDegrees)}"
+                app:startAnimation="@{riddleModel.rotationAnimationCompass}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,12 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/ic_needle"
-                app:currentRotation="@{riddleModel.currentDegrees}"
+                app:startAnimation="@{riddleModel.rotationAnimationTarget}"
                 app:layout_constraintBottom_toBottomOf="@id/compass"
                 app:layout_constraintEnd_toEndOf="@id/compass"
                 app:layout_constraintStart_toStartOf="@id/compass"
-                app:layout_constraintTop_toTopOf="@id/compass"
-                app:newRotation="@{(-riddleModel.northDegrees) - riddleModel.targetDegrees}" />
+                app:layout_constraintTop_toTopOf="@id/compass" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView

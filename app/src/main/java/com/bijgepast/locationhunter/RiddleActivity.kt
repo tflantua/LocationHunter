@@ -31,12 +31,12 @@ class RiddleActivity : AppCompatActivity() {
             riddleViewModel.setRiddle(riddleModel!!)
         if (this.riddleViewModel.getGpsManager() == null) {
             riddleViewModel.setGpsManager(GpsManager(this))
-            riddleViewModel.getGpsManager()!!.addListener(riddleModel!!)
         }
 
         this.sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL )
-        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL )
+//        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL )
+//        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL )
+
 
         super.onCreate(savedInstanceState)
 
@@ -55,12 +55,22 @@ class RiddleActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val riddleModel = riddleViewModel.getRiddle().value
-        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL )
-        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL )
+        riddleViewModel.getGpsManager()!!.addListener(riddleModel!!)
+        // for the system's orientation sensor registered listeners
+
+        // for the system's orientation sensor registered listeners
+        sensorManager.registerListener(
+            riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+            SensorManager.SENSOR_DELAY_GAME
+        )
+//        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), SensorManager.SENSOR_DELAY_NORMAL )
+//        this.sensorManager.registerListener(riddleModel, sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD), SensorManager.SENSOR_DELAY_NORMAL )
     }
 
     override fun onPause() {
         super.onPause()
-        sensorManager.unregisterListener(riddleViewModel.getRiddle().value)
+        val riddleModel = riddleViewModel.getRiddle().value!!
+        sensorManager.unregisterListener(riddleModel)
+        riddleViewModel.getGpsManager()?.removeListener(riddleModel)
     }
 }

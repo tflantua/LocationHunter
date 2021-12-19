@@ -58,11 +58,7 @@ fun rotateAnimation(v: ImageView, currentDegree: Float, degree: Float){
 
 
 @BindingAdapter("startAnimation")
-fun animation(v: ImageView, boolean: Boolean) {
-    Log.d(null, "start Animation was called")
-    if (v.drawable is AnimationDrawable) {
-        val a = v.drawable as AnimationDrawable
-        a.start()
-    }
+fun animation(v: ImageView, animation: RotateAnimation) {
+       v.startAnimation(animation)
 }
 
