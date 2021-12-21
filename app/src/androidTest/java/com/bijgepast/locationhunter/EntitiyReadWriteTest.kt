@@ -57,7 +57,7 @@ class EntitiyReadWriteTest {
     @Test
     @Throws(Exception::class)
     fun writeAndReadLocationFromDatabase() {
-        val location = LocationEntity(1, 12.0, 15.10, "HOHOHO", "Kerstman", "Noordpool")
+        val location = LocationEntity(1, 12.0, 15.10, "HOHOHO", "Kerstman", "Noordpool", 300, 6)
 
         locationDao.insertLocation(location)
         val getLocation = locationDao.getLocation(1)
@@ -73,7 +73,7 @@ class EntitiyReadWriteTest {
     @Test
     @Throws(Exception::class)
     fun writeHintsFromDatabaseException() {
-        val wrongHint = HintsEntity(2, 0, "Ja toch")
+        val wrongHint = HintsEntity(2, 0, "Ja toch",300)
 
         var exception: java.lang.Exception? = null
 
@@ -91,7 +91,7 @@ class EntitiyReadWriteTest {
     fun writeAndReadHintsFromDatabase() {
         writeAndReadLocationFromDatabase()
 
-        val hint = HintsEntity(1, 1, "Ja toch")
+        val hint = HintsEntity(1, 1, "Ja toch", 300)
         hintsDao.insertHint(hint)
 
         val getHint = hintsDao.getTotalHints(1)

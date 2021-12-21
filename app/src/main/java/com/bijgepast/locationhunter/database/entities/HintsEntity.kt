@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 
 @Entity(
     tableName = "Hints",
-    primaryKeys = ["ID", "LocationID"],
+    primaryKeys = ["ID"],
     foreignKeys = [ForeignKey(
         entity = LocationEntity::class,
         parentColumns = arrayOf("ID"),

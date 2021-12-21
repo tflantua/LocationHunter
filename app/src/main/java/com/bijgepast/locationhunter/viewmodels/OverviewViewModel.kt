@@ -9,7 +9,8 @@ class OverviewViewModel : ViewModel() {
     private var routes: MutableLiveData<List<RiddleModel>> = MutableLiveData<List<RiddleModel>>()
 
     fun setRiddles(routeModels: List<RiddleModel>) {
-        routes.value = routeModels
+        routes.postValue(routeModels)
+
     }
 
     fun getRiddles(): LiveData<List<RiddleModel>> {

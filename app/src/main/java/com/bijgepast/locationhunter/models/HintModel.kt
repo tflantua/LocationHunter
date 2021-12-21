@@ -7,10 +7,10 @@ import java.io.Serializable
 
 class HintModel(
     private var unLocked: Boolean,
-    private var show: Boolean,
     val hint: String,
     val cost: Int
 ) : BaseObservable(), Serializable {
+    private var show: Boolean = false
 
     @Bindable
     fun getUnlocked(): Boolean {

@@ -12,4 +12,6 @@ data class LocationEntity(
     @ColumnInfo(name = "Riddle") val riddle: String,
     @ColumnInfo(name = "RiddleName") val riddleName: String,
     @ColumnInfo(name = "LocationName") val locationName: String,
+    @ColumnInfo(name = "Points") val points: Int,
+    @ColumnInfo(name = "Difficulty") val difficulty: Int
 )
