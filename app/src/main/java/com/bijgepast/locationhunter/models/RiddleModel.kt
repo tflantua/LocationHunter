@@ -12,6 +12,7 @@ import androidx.databinding.Bindable
 import com.bijgepast.locationhunter.BR
 import com.bijgepast.locationhunter.enums.DistanceStatus
 import com.bijgepast.locationhunter.utils.GpsManager
+import com.bijgepast.locationhunter.utils.bearingToDegrees
 import com.bijgepast.locationhunter.utils.getStatusFromDistance
 import java.io.Serializable
 import kotlin.math.roundToInt
@@ -95,8 +96,10 @@ class RiddleModel(
 //        this.declination = gmf.declination
 
         this.setStatus(getStatusFromDistance(floatArray[0]))
+        if(this.distanceStatus == DistanceStatus.REACHED)
+            setCompleted(true)
 
-        newTargetDegree = -floatArray[1]
+        newTargetDegree = -bearingToDegrees(floatArray[1])
 
         currentTargetDegree = newTargetDegree
 
@@ -207,6 +210,10 @@ class RiddleModel(
         notifyPropertyChanged(BR.rotationAnimationCompass)
         notifyPropertyChanged(BR.rotationAnimationTarget)
         currentCompasDegree = degree
+    }
+
+    fun updateProperties(){
+        notifyPropertyChanged(BR._all)
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {

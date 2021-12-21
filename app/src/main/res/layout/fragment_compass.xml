@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="@{riddleModel.status == DistanceStatus.HOTTER_THEN_HELL ? View.VISIBLE : View.GONE }">
+            android:visibility="@{riddleModel.status == DistanceStatus.HOTTER_THEN_HELL | riddleModel.status == DistanceStatus.REACHED ? View.VISIBLE  : View.GONE }">
 
             <TextView
                 android:id="@+id/currentDirection"

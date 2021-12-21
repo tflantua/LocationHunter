@@ -47,6 +47,11 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        this.overviewViewModel.getRiddles().value?.forEach{r -> r.updateProperties()}
+    }
+
     private fun generateData(): List<RiddleModel> {
         val value: MutableList<RiddleModel> = ArrayList(5)
         value.add(
@@ -70,7 +75,7 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
                 generateHints(),
                 300,
                 DistanceStatus.HOT,
-                false
+                true
             )
         )
         value.add(

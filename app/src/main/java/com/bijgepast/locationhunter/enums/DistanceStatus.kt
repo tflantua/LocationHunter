@@ -7,5 +7,6 @@ enum class DistanceStatus(val DistanceInMeters: Float, val nameForEnum: String) 
     ROOM_TEMPERATURE(10000f, "Room temperature"),
     HOT(5000f, "Hot"),
     VERY_HOT(1000f, "Very hot"),
-    HOTTER_THEN_HELL(500f, "HOTTER THAN HELL")
+    HOTTER_THEN_HELL(500f, "HOTTER THAN HELL"),
+    REACHED(30f, "Congratulations you have found the location")
 }
