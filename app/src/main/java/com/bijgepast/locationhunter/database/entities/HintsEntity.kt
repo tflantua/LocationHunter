@@ -3,10 +3,10 @@ package com.bijgepast.locationhunter.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "Hints",
+    primaryKeys = ["ID", "LocationID"],
     foreignKeys = [ForeignKey(
         entity = LocationEntity::class,
         parentColumns = arrayOf("ID"),
@@ -14,7 +14,8 @@ import androidx.room.PrimaryKey
     )]
 )
 data class HintsEntity(
-    @PrimaryKey val ID: Int,
+    @ColumnInfo(name = "ID") val ID: Int,
     @ColumnInfo(name = "LocationID") val locationID: Int,
-    @ColumnInfo(name = "Description") val description: String
+    @ColumnInfo(name = "Description") val description: String,
+    @ColumnInfo(name = "Cost") val cost: Int
 )
