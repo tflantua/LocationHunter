@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bijgepast.locationhunter.databinding.FragmentHomeBinding
-import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
+import com.bijgepast.locationhunter.utils.PopUpClass
 import com.bijgepast.locationhunter.utils.TomTomManager
-import com.tomtom.online.sdk.map.*
+import com.bijgepast.locationhunter.viewmodels.RiddleViewModel
+import com.tomtom.online.sdk.map.MapView
 
 
 class HomeFragment : Fragment() {
@@ -40,8 +41,8 @@ class HomeFragment : Fragment() {
 
         binding.riddleModel = riddleViewModel.getRiddle().value
 
-        binding.button.setOnClickListener {
-            tomTomManager!!.search("Reeweg Oost 82")
+        binding.searchButton.setOnClickListener {
+            PopUpClass(layoutInflater, this.tomTomManager!!)
         }
 
         val root: View = binding.root

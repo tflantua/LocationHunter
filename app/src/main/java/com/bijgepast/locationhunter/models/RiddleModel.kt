@@ -11,6 +11,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.bijgepast.locationhunter.BR
 import com.bijgepast.locationhunter.enums.DistanceStatus
+import com.bijgepast.locationhunter.utils.GpsCallback
 import com.bijgepast.locationhunter.utils.GpsManager
 import com.bijgepast.locationhunter.utils.bearingToDegrees
 import com.bijgepast.locationhunter.utils.getStatusFromDistance
@@ -27,7 +28,7 @@ class RiddleModel(
     private val points: Int,
     private var distanceStatus: DistanceStatus,
     private var completed: Boolean
-) : BaseObservable(), Serializable, GpsManager.GpsCallback, SensorEventListener {
+) : BaseObservable(), Serializable, GpsCallback, SensorEventListener {
 
     @Bindable
     fun getCompleted(): Boolean {

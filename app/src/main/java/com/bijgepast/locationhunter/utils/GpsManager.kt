@@ -8,13 +8,16 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
-import java.util.function.Consumer
 
+interface GpsCallback {
+    fun updateLocation(location: Location)
+}
 
-class GpsManager(private val context: Activity) : LocationListener {
+class GpsManager(context: Activity) : LocationListener, GpsCallback {
     private val listeners: MutableList<GpsCallback> = ArrayList()
     private val locationManager: LocationManager =
         getSystemService(context, LocationManager::class.java) as LocationManager
+    private var location: Location?
 
     init {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -34,32 +37,29 @@ class GpsManager(private val context: Activity) : LocationListener {
         }
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, this)
 
-        val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
         if (location != null)
-            onLocationChanged(location)
+            onLocationChanged(location!!)
+
+        addListener(this)
     }
 
     fun addListener(listener: GpsCallback) {
         this.listeners.add(listener)
+        if (location != null)
+            listener.updateLocation(location!!)
     }
 
     fun removeListener(listener: GpsCallback): Boolean {
         return this.listeners.remove(listener)
     }
 
-    interface GpsCallback {
-        fun updateLocation(location: Location)
-    }
 
     override fun onLocationChanged(location: Location) {
         this.listeners.forEach { l -> l.updateLocation(location) }
     }
 
-    override fun onProviderEnabled(provider: String) {
-        super.onProviderEnabled(provider)
-    }
-
-    override fun onProviderDisabled(provider: String) {
-        super.onProviderDisabled(provider)
+    override fun updateLocation(location: Location) {
+        this.location = location
     }
 }

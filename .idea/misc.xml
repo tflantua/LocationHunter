@@ -7,7 +7,6 @@
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable-v24/rotating_animation_needle.xml" value="0.34814814814814815" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable/compas_loading_animation.xml" value="0.34814814814814815" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable/compas_loading_icon.xml" value="0.23541666666666666" />
-        <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.18385416666666668" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable/ic_baseline_lock_open_24.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable/ic_compas.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.23541666666666666" />
@@ -25,11 +24,17 @@
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/layout/fragment_home.xml" value="0.22864583333333333" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/layout/hint_list_item.xml" value="0.2667572463768116" />
         <entry key="..\:/Users/rick/StudioProjects/LocationHunter/app/src/main/res/layout/riddle_list_item.xml" value="0.33" />
+        <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/drawable/ic_twotone_location_on_24.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/drawable/route_black_24dp.xml" value="0.21875" />
+        <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/drawable/search_result_background.xml" value="0.21875" />
         <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/activity_login.xml" value="0.28306159420289856" />
         <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/activity_main.xml" value="0.28306159420289856" />
         <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/activity_overview.xml" value="0.276268115942029" />
+        <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/fragment_home.xml" value="0.152" />
         <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/fragment_login.xml" value="0.20260416666666667" />
         <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/fragment_signup.xml" value="0.20260416666666667" />
+        <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/popup_search.xml" value="0.2" />
+        <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/layout/search_list_item.xml" value="0.4" />
         <entry key="..\:/Users/thoma/AndroidStudioProjects/LocationHunter/app/src/main/res/xml/network_security_config.xml" value="0.11510416666666666" />
       </map>
     </option>

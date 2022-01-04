@@ -2,17 +2,14 @@ package com.bijgepast.locationhunter.adapters
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.drawable.AnimationDrawable
-import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bijgepast.locationhunter.R
-import android.view.animation.Animation
-
-import android.view.animation.RotateAnimation
-
-
+import com.tomtom.online.sdk.search.location.Address
 
 
 fun startActivity(activity: Activity, url: String, flags: Int) {
@@ -32,7 +29,7 @@ fun goneUnless(view: View, visible: Boolean) {
 }
 
 @BindingAdapter(value = ["currentRotation", "newRotation"], requireAll = true)
-fun rotateAnimation(v: ImageView, currentDegree: Float, degree: Float){
+fun rotateAnimation(v: ImageView, currentDegree: Float, degree: Float) {
     val ra = RotateAnimation(
         -currentDegree,
         degree,
@@ -59,6 +56,16 @@ fun rotateAnimation(v: ImageView, currentDegree: Float, degree: Float){
 
 @BindingAdapter("startAnimation")
 fun animation(v: ImageView, animation: RotateAnimation) {
-       v.startAnimation(animation)
+    v.startAnimation(animation)
+}
+
+@BindingAdapter("adress")
+fun TextView.text(address: Address) {
+    text = address.freeFormAddress
+}
+
+@BindingAdapter("distance")
+fun TextView.text(distance: Double) {
+    text = String.format("%.1f km", distance/1000)
 }
 
