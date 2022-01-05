@@ -14,4 +14,4 @@ data class LocationEntity(
     @ColumnInfo(name = "LocationName") val locationName: String,
     @ColumnInfo(name = "Points") val points: Int,
     @ColumnInfo(name = "Difficulty") val difficulty: Int
-)
+): BaseEntity

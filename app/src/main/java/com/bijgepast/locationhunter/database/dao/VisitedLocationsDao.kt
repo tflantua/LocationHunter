@@ -7,12 +7,9 @@ import androidx.room.Query
 import com.bijgepast.locationhunter.database.entities.VisitedLocationsEntity
 
 @Dao
-interface VisitedLocationsDao {
+interface VisitedLocationsDao : BaseDao<VisitedLocationsEntity> {
     @Insert
     fun insertVisitedLocation(vararg visitedLocationsEntity: VisitedLocationsEntity)
-
-    @Delete
-    fun delete(visitedLocationsEntity: VisitedLocationsEntity)
 
     @Query("UPDATE VisitedLocations SET Visited = :visited WHERE LocationID = :locationId AND UserID = :userId")
     fun updateVisited(visited: Boolean, locationId: Int, userId: Int)

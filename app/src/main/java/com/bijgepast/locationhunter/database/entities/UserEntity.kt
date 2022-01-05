@@ -11,4 +11,4 @@ data class UserEntity(
     @ColumnInfo(name = "UserName") val userName: String,
     @ColumnInfo(name = "password") val password: String,
     @ColumnInfo(name = "key") val key: String
-)
+): BaseEntity

@@ -3,6 +3,9 @@ package com.bijgepast.locationhunter.models
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
+import com.bijgepast.locationhunter.database.entities.HintsEntity
+import com.bijgepast.locationhunter.utils.DataBaseManager
+import org.w3c.dom.Entity
 import java.io.Serializable
 
 class HintModel(

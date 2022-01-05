@@ -18,4 +18,4 @@ data class HintsEntity(
     @ColumnInfo(name = "LocationID") val locationID: Int,
     @ColumnInfo(name = "Description") val description: String,
     @ColumnInfo(name = "Cost") val cost: Int
-)
+): BaseEntity

@@ -23,4 +23,4 @@ data class UnlockedHintsEntity(
     @ColumnInfo(name = "UserID") val userID: Int,
     @ColumnInfo(name = "HintsID") val hintsID: Int,
     @ColumnInfo(name = "unlocked") val unlocked: Boolean,
-)
+): BaseEntity

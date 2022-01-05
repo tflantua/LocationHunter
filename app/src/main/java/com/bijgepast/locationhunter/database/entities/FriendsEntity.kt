@@ -21,4 +21,4 @@ import androidx.room.ForeignKey
 data class FriendsEntity(
     @ColumnInfo(name = "UserID1") val firstUserID: String,
     @ColumnInfo(name = "UserID2") val secondUserID: String,
-)
+): BaseEntity

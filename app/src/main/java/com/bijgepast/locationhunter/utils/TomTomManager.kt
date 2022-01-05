@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.location.Location
+import androidx.core.content.res.ResourcesCompat
 import com.bijgepast.locationhunter.R
 import com.tomtom.online.sdk.common.location.LatLng
 import com.tomtom.online.sdk.common.location.LatLngBias
@@ -76,6 +77,7 @@ class TomTomManager(private val context: Context, private val gpsManager: GpsMan
     }
 
     override fun onSuccess(routePlan: RoutePlan) {
+        //todo fix for warning ? ResourcesCompat.getDrawable(context.resources, R.drawable.ic_twotone_location_on_24, context.resources.newTheme())
         val drawable = context.resources.getDrawable(R.drawable.ic_twotone_location_on_24)
 
         val bitmap = Bitmap.createBitmap(

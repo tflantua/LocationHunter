@@ -7,12 +7,7 @@ import androidx.room.Query
 import com.bijgepast.locationhunter.database.entities.UnlockedHintsEntity
 
 @Dao
-interface UnlockedHintsDao {
-    @Insert
-    fun insertUnlockedHints(vararg unlockedHintsEntity: UnlockedHintsEntity)
-
-    @Delete
-    fun delete(unlockedHintsEntity: UnlockedHintsEntity)
+interface UnlockedHintsDao : BaseDao<UnlockedHintsEntity> {
 
     @Query("UPDATE UnlockedHints SET unlocked = :unlocked WHERE HintsID = :hintId AND UserID = :userId")
     fun updateUnlocked(unlocked: Boolean, hintId: Int, userId: Int)

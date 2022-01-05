@@ -22,4 +22,4 @@ data class VisitedLocationsEntity(
     @ColumnInfo(name = "LocationID") val locationID: Int,
     @ColumnInfo(name = "UserID") val userID: Int,
     @ColumnInfo(name = "Visited") val visited: Boolean
-)
+): BaseEntity

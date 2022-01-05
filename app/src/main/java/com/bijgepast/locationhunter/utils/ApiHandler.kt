@@ -1,12 +1,14 @@
 package com.bijgepast.locationhunter.utils
 
 import com.bijgepast.locationhunter.interfaces.CallbackListener
+import com.bijgepast.locationhunter.models.HintModel
+import com.bijgepast.locationhunter.models.RiddleModel
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import okhttp3.FormBody
 
-class ApiHandler {
+class ApiHandler : LoadingAndSaving {
     companion object {
         private var instance: ApiHandler? = null
         fun getInstance(): ApiHandler {
@@ -40,5 +42,21 @@ class ApiHandler {
         } else {
             listener.onFailure("StatusCode: ${jsonStatus.get("statusCode").asInt} \n Er is iets niet helemaal goed gegaan.")
         }
+    }
+
+    override fun getRiddles(): List<RiddleModel> {
+        TODO("Not yet implemented")
+    }
+
+    override fun saveUnlocked(hintModel: HintModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun saveVisited(riddleModel: RiddleModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun saveFriends(id: Int, accept: Boolean) {
+        TODO("Not yet implemented")
     }
 }

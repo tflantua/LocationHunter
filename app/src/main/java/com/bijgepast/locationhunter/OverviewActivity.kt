@@ -41,7 +41,7 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
             Thread {
                 val dbManager = DataBaseManager.getInstance()
                 dbManager.createDB(this)
-                this.overviewViewModel.setRiddles(dbManager.getRiddels())
+                this.overviewViewModel.setRiddles(dbManager.getRiddles())
             }.start()
         }
 

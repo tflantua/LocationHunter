@@ -64,7 +64,7 @@ class PopUpClass(inflater: LayoutInflater, private val tomtomManager: TomTomMana
 // which view you pass in doesn't matter, it is only used for the window tolken
         popupWindow!!.showAtLocation(View(inflater.context), Gravity.CENTER, 0, 0)
         // dismiss the popup window when touched
-        popupView.setOnTouchListener { v: View, event: MotionEvent? ->
+        popupView.setOnTouchListener { v: View, _: MotionEvent? ->
             v.performClick()
             true
         }
