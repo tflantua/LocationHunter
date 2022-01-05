@@ -4,6 +4,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Update;
 
+import com.bijgepast.locationhunter.database.entities.BaseEntity;
+
 
 public interface BaseDao<TEntity extends BaseEntity> {
     @Insert
