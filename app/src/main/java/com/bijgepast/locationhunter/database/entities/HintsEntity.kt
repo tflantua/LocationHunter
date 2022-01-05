@@ -3,6 +3,7 @@ package com.bijgepast.locationhunter.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import com.bijgepast.locationhunter.models.BaseModel
 
 @Entity(
     tableName = "Hints",
@@ -18,4 +19,8 @@ data class HintsEntity(
     @ColumnInfo(name = "LocationID") val locationID: Int,
     @ColumnInfo(name = "Description") val description: String,
     @ColumnInfo(name = "Cost") val cost: Int
-): BaseEntity
+): BaseEntity {
+    override fun getModel(): BaseModel {
+        TODO("Not yet implemented")
+    }
+}

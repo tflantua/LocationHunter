@@ -3,9 +3,10 @@ package com.bijgepast.locationhunter.models
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.bijgepast.locationhunter.BR
+import com.bijgepast.locationhunter.database.entities.BaseEntity
 
 class UserModel(val userName: String, private var score: Int, private val key: String) :
-    BaseObservable() {
+    BaseObservable(), BaseModel {
 
     private val locations: MutableList<LocationModel> = ArrayList()
 
@@ -41,6 +42,10 @@ class UserModel(val userName: String, private var score: Int, private val key: S
 
     fun getKey(): String {
         return this.key
+    }
+
+    override fun getEntity(): BaseEntity {
+        TODO("Not yet implemented")
     }
 
 

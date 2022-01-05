@@ -10,6 +10,7 @@ import android.view.animation.RotateAnimation
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.bijgepast.locationhunter.BR
+import com.bijgepast.locationhunter.database.entities.BaseEntity
 import com.bijgepast.locationhunter.enums.DistanceStatus
 import com.bijgepast.locationhunter.utils.GpsCallback
 import com.bijgepast.locationhunter.utils.GpsManager
@@ -28,7 +29,7 @@ class RiddleModel(
     private val points: Int,
     private var distanceStatus: DistanceStatus,
     private var completed: Boolean
-) : BaseObservable(), Serializable, GpsCallback, SensorEventListener {
+) : BaseObservable(), Serializable, GpsCallback, SensorEventListener, BaseModel {
 
     @Bindable
     fun getCompleted(): Boolean {
@@ -87,12 +88,12 @@ class RiddleModel(
             floatArray
         )
 
-        val gmf = GeomagneticField(
-            location.latitude.toFloat(),
-            location.longitude.toFloat(),
-            location.altitude.toFloat(),
-            System.currentTimeMillis()
-        )
+//        val gmf = GeomagneticField(
+//            location.latitude.toFloat(),
+//            location.longitude.toFloat(),
+//            location.altitude.toFloat(),
+//            System.currentTimeMillis()
+//        )
 
 //        this.declination = gmf.declination
 
@@ -219,6 +220,10 @@ class RiddleModel(
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
 //        TODO("Not yet implemented")
+    }
+
+    override fun getEntity(): BaseEntity {
+        TODO("Not yet implemented")
     }
 
 

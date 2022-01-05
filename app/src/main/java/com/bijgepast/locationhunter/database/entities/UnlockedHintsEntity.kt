@@ -3,7 +3,7 @@ package com.bijgepast.locationhunter.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
-import androidx.room.ForeignKey.CASCADE
+import com.bijgepast.locationhunter.models.BaseModel
 
 @Entity(
     tableName = "UnlockedHints",
@@ -23,4 +23,8 @@ data class UnlockedHintsEntity(
     @ColumnInfo(name = "UserID") val userID: Int,
     @ColumnInfo(name = "HintsID") val hintsID: Int,
     @ColumnInfo(name = "unlocked") val unlocked: Boolean,
-): BaseEntity
+): BaseEntity {
+    override fun getModel(): BaseModel {
+        TODO("Not yet implemented")
+    }
+}

@@ -3,6 +3,7 @@ package com.bijgepast.locationhunter.models
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
+import com.bijgepast.locationhunter.database.entities.BaseEntity
 import com.bijgepast.locationhunter.database.entities.HintsEntity
 import com.bijgepast.locationhunter.utils.DataBaseManager
 import org.w3c.dom.Entity
@@ -12,7 +13,7 @@ class HintModel(
     private var unLocked: Boolean,
     val hint: String,
     val cost: Int
-) : BaseObservable(), Serializable {
+) : BaseObservable(), Serializable, BaseModel {
     private var show: Boolean = false
 
     @Bindable
@@ -39,6 +40,10 @@ class HintModel(
     fun setShow(show: Boolean) {
         this.show = show
         notifyPropertyChanged(BR.show)
+    }
+
+    override fun getEntity(): BaseEntity {
+        TODO("Not yet implemented")
     }
 
 }
