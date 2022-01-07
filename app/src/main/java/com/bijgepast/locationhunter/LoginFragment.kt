@@ -14,6 +14,7 @@ import com.bijgepast.locationhunter.databinding.FragmentLoginBinding
 import com.bijgepast.locationhunter.interfaces.CallbackListener
 import com.bijgepast.locationhunter.models.LoginModel
 import com.bijgepast.locationhunter.utils.ApiHandler
+import com.bijgepast.locationhunter.utils.NetworkHandler
 import com.google.gson.JsonObject
 
 class LoginFragment : Fragment(), CallbackListener {
@@ -37,7 +38,7 @@ class LoginFragment : Fragment(), CallbackListener {
         val usernamBox = binding?.UserName
         val passwordBox = binding?.Password
 
-        ApiHandler.getInstance()
+        ApiHandler.getInstance(NetworkHandler.getInstance())
             .login(usernamBox?.text.toString(), passwordBox?.text.toString(), this)
     }
 
