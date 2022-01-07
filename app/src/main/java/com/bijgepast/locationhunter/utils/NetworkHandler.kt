@@ -1,10 +1,11 @@
 package com.bijgepast.locationhunter.utils
 
+import com.bijgepast.locationhunter.interfaces.NetworkHandlerInterface
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
 
-class NetworkHandler {
+class NetworkHandler : NetworkHandlerInterface {
     companion object {
         private var instance: NetworkHandler? = null
         fun getInstance(): NetworkHandler {
@@ -13,13 +14,13 @@ class NetworkHandler {
             return instance!!
         }
 
-        val address = "192.168.1.109"
+        const val address = "192.168.1.109"
     }
 
     private val client: OkHttpClient = OkHttpClient()
     private val address: String = "http://${NetworkHandler.address}/requests/"
 
-    fun POST(requestString: String, body: RequestBody): String? {
+    override fun POST(requestString: String, body: RequestBody): String? {
         val request = Request.Builder()
             .url(this.address + requestString)
             .post(body)

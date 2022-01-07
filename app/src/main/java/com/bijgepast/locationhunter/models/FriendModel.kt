@@ -1,3 +1,9 @@
 package com.bijgepast.locationhunter.models
 
-data class FriendModel(val userName: String, val score: Int)
+import com.bijgepast.locationhunter.database.entities.BaseEntity
+
+data class FriendModel(val userName: String, val score: Int) : BaseModel {
+    override fun getEntity(): BaseEntity {
+        TODO("Not yet implemented")
+    }
+}

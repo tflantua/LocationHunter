@@ -1,18 +1,10 @@
 package com.bijgepast.locationhunter.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.bijgepast.locationhunter.database.entities.HintsEntity
 
 @Dao
-interface HintsDao {
-    @Insert
-    fun insertHint(vararg hintEntity: HintsEntity)
-
-    @Delete
-    fun delete(hintsEntity: HintsEntity)
+interface HintsDao : BaseDao<HintsEntity> {
 
     @Query("SELECT COUNT(id) FROM Hints WHERE LocationID = :locationId ")
     fun getTotalHints(locationId: Int): Int
@@ -22,4 +14,5 @@ interface HintsDao {
 
     @Query("SELECT * FROM Hints Where LocationID = :locationId")
     fun getHintsFromLocation(locationId: Int): List<HintsEntity>
+
 }

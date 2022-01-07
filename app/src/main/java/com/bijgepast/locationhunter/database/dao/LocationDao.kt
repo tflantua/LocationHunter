@@ -7,12 +7,7 @@ import androidx.room.Query
 import com.bijgepast.locationhunter.database.entities.LocationEntity
 
 @Dao
-interface LocationDao {
-    @Insert
-    fun insertLocation(vararg location: LocationEntity)
-
-    @Delete
-    fun delete(locationEntity: LocationEntity)
+interface LocationDao : BaseDao<LocationEntity> {
 
     @Query("SELECT * FROM Location")
     fun getLocations(): List<LocationEntity>

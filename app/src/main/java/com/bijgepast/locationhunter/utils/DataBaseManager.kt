@@ -16,7 +16,7 @@ import com.bijgepast.locationhunter.models.LocationModel
 import com.bijgepast.locationhunter.models.RiddleModel
 import timber.log.Timber
 
-class DataBaseManager() {
+class DataBaseManager() : LoadingAndSaving {
     companion object {
         private var instance: DataBaseManager? = null
         fun getInstance(): DataBaseManager {
@@ -24,9 +24,10 @@ class DataBaseManager() {
 
             return instance!!
         }
+
+        private var db: AppDatabase? = null
     }
 
-    private var db: AppDatabase? = null
     private var userDao: UserDao? = null
     private var hintsDao: HintsDao? = null
     private var friendsDao: FriendsDao? = null
@@ -40,7 +41,7 @@ class DataBaseManager() {
             return
         }
 
-        this.db = Room.databaseBuilder(context, AppDatabase::class.java, "location_hunter")
+        db = Room.databaseBuilder(context, AppDatabase::class.java, "location_hunter")
             .build()
 
         this.userDao = db?.userDao()
@@ -54,6 +55,7 @@ class DataBaseManager() {
             generateDataIntoDatabase()
     }
 
+    //region data generation
     private fun generateDataIntoDatabase() {
         GenerateLocations()
         GenerateHints()
@@ -67,7 +69,7 @@ class DataBaseManager() {
         )
 
         userEntities.forEach { user ->
-            userDao?.insertUser(user)
+            userDao?.insert(user)
         }
 
     }
@@ -89,7 +91,7 @@ class DataBaseManager() {
         )
 
         hintEntities.forEach { hint ->
-            hintsDao?.insertHint(hint)
+            hintsDao?.insert(hint)
         }
 
     }
@@ -117,11 +119,12 @@ class DataBaseManager() {
         )
 
         locationEntities.forEach { location ->
-            locationDao?.insertLocation(location)
+            locationDao?.insert(location)
         }
     }
+    //endregion
 
-    fun getRiddels(): List<RiddleModel> {
+    override fun getRiddles(): List<RiddleModel> {
         val locations = locationDao?.getLocations()
         val riddleList: MutableList<RiddleModel> = ArrayList()
 
@@ -149,5 +152,16 @@ class DataBaseManager() {
         return riddleList.toList()
     }
 
+    override fun saveUnlocked(hintModel: HintModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun saveVisited(riddleModel: RiddleModel) {
+        TODO("Not yet implemented")
+    }
+
+    override fun saveFriends(id: Int, accept: Boolean) {
+        TODO("Not yet implemented")
+    }
 
 }

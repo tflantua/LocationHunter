@@ -7,12 +7,7 @@ import androidx.room.Query
 import com.bijgepast.locationhunter.database.entities.UserEntity
 
 @Dao
-interface UserDao {
-    @Insert
-    fun insertUser(vararg userEntity: UserEntity)
-
-    @Delete
-    fun delete(userEntity: UserEntity)
+interface UserDao : BaseDao<UserEntity> {
 
     @Query("SELECT Score FROM user WHERE ID = :ID")
     fun getFriendScore(ID: Int): Int

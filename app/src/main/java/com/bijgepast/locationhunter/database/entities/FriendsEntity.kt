@@ -3,6 +3,7 @@ package com.bijgepast.locationhunter.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import com.bijgepast.locationhunter.models.BaseModel
 
 @Entity(
     tableName = "Friends",
@@ -21,4 +22,8 @@ import androidx.room.ForeignKey
 data class FriendsEntity(
     @ColumnInfo(name = "UserID1") val firstUserID: String,
     @ColumnInfo(name = "UserID2") val secondUserID: String,
-)
+):BaseEntity {
+    override fun getModel(): BaseModel {
+        TODO("Not yet implemented")
+    }
+}
