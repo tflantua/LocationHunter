@@ -1,6 +1,5 @@
 package com.bijgepast.locationhunter.models
 
-import android.hardware.GeomagneticField
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -12,8 +11,8 @@ import androidx.databinding.Bindable
 import com.bijgepast.locationhunter.BR
 import com.bijgepast.locationhunter.database.entities.BaseEntity
 import com.bijgepast.locationhunter.enums.DistanceStatus
+import com.bijgepast.locationhunter.utils.DataManager
 import com.bijgepast.locationhunter.utils.GpsCallback
-import com.bijgepast.locationhunter.utils.GpsManager
 import com.bijgepast.locationhunter.utils.bearingToDegrees
 import com.bijgepast.locationhunter.utils.getStatusFromDistance
 import java.io.Serializable
@@ -28,7 +27,8 @@ class RiddleModel(
     val hints: List<HintModel>,
     private val points: Int,
     private var distanceStatus: DistanceStatus,
-    private var completed: Boolean
+    private var completed: Boolean,
+    val id: Int
 ) : BaseObservable(), Serializable, GpsCallback, SensorEventListener, BaseModel {
 
     @Bindable
@@ -40,6 +40,9 @@ class RiddleModel(
     fun setCompleted(boolean: Boolean) {
         if (!this.completed) {
             this.completed = boolean
+
+            DataManager.getInstance().saveVisited(this)
+
             notifyPropertyChanged(BR.completed)
         }
     }
@@ -98,7 +101,7 @@ class RiddleModel(
 //        this.declination = gmf.declination
 
         this.setStatus(getStatusFromDistance(floatArray[0]))
-        if(this.distanceStatus == DistanceStatus.REACHED)
+        if (this.distanceStatus == DistanceStatus.REACHED)
             setCompleted(true)
 
         newTargetDegree = -bearingToDegrees(floatArray[1])
@@ -214,7 +217,7 @@ class RiddleModel(
         currentCompasDegree = degree
     }
 
-    fun updateProperties(){
+    fun updateProperties() {
         notifyPropertyChanged(BR._all)
     }
 

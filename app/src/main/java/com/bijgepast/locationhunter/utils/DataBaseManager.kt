@@ -1,15 +1,10 @@
 package com.bijgepast.locationhunter.utils
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import com.bijgepast.locationhunter.database.AppDatabase
 import com.bijgepast.locationhunter.database.dao.*
-import com.bijgepast.locationhunter.database.entities.HintsEntity
-import com.bijgepast.locationhunter.database.entities.LocationEntity
-import com.bijgepast.locationhunter.database.entities.UserEntity
+import com.bijgepast.locationhunter.database.entities.*
 import com.bijgepast.locationhunter.enums.DistanceStatus
 import com.bijgepast.locationhunter.models.HintModel
 import com.bijgepast.locationhunter.models.LocationModel
@@ -35,11 +30,15 @@ class DataBaseManager() : LoadingAndSaving {
     private var unlockedHintsDao: UnlockedHintsDao? = null
     private var visitedLocationsDao: VisitedLocationsDao? = null
 
+    private var context: Context? = null
+
     fun createDB(context: Context) {
         if (db != null) {
             Timber.d(DataBaseManager::class.simpleName.toString(), "Database already exists")
             return
         }
+
+        this.context = context
 
         db = Room.databaseBuilder(context, AppDatabase::class.java, "location_hunter")
             .build()
@@ -57,12 +56,12 @@ class DataBaseManager() : LoadingAndSaving {
 
     //region data generation
     private fun generateDataIntoDatabase() {
-        GenerateLocations()
-        GenerateHints()
-        GenerateUsers()
+        generateLocations()
+        generateHints()
+        generateUsers()
     }
 
-    private fun GenerateUsers() {
+    private fun generateUsers() {
         val userEntities = listOf<UserEntity>(
             UserEntity(0, 0, "ThomasFlantua", "Welkom 01", ""),
             UserEntity(1, 0, "RickBuring", "Welkom 03", "")
@@ -74,7 +73,7 @@ class DataBaseManager() : LoadingAndSaving {
 
     }
 
-    private fun GenerateHints() {
+    private fun generateHints() {
         val hintEntities = listOf(
             HintsEntity(0, 0, "noord positief oost positief zuid negatief west negatief", 100),
             HintsEntity(1, 0, "Null island", 400),
@@ -96,7 +95,7 @@ class DataBaseManager() : LoadingAndSaving {
 
     }
 
-    private fun GenerateLocations() {
+    private fun generateLocations() {
         val locationEntities = listOf(
             LocationEntity(0, 0.0, 0.0, "0.0", "Null point", "Null island", 600, 6),
             LocationEntity(
@@ -132,7 +131,7 @@ class DataBaseManager() : LoadingAndSaving {
             val hintsLocation = hintsDao?.getHintsFromLocation(location.ID)
             val hintsList: MutableList<HintModel> = ArrayList()
             hintsLocation?.forEach { hint ->
-                hintsList.add(HintModel(false, hint.description, hint.cost))
+                hintsList.add(HintModel(false, hint.description, hint.cost, hint.ID))
             }
 
             riddleList.add(
@@ -144,7 +143,8 @@ class DataBaseManager() : LoadingAndSaving {
                     hintsList.toList(),
                     location.points,
                     DistanceStatus.FROZEN,
-                    false
+                    false,
+                    location.ID
                 )
             )
         }
@@ -153,11 +153,25 @@ class DataBaseManager() : LoadingAndSaving {
     }
 
     override fun saveUnlocked(hintModel: HintModel) {
-        TODO("Not yet implemented")
+        val userEntity = userDao?.getUser(
+            context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                ?.getString("Name", "UserName").toString()
+        )
+
+        unlockedHintsDao?.update(
+            UnlockedHintsEntity(userEntity!!.ID, hintModel.id, hintModel.getUnlocked())
+        )
     }
 
     override fun saveVisited(riddleModel: RiddleModel) {
-        TODO("Not yet implemented")
+        val userEntity = userDao?.getUser(
+            context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                ?.getString("Name", "UserName").toString()
+        )
+
+        visitedLocationsDao?.update(
+            VisitedLocationsEntity(riddleModel.id, userEntity!!.ID, riddleModel.getCompleted())
+        )
     }
 
     override fun saveFriends(id: Int, accept: Boolean) {
