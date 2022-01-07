@@ -1,9 +1,8 @@
 package com.bijgepast.locationhunter.utils
 
-import android.content.Context
+import com.bijgepast.locationhunter.interfaces.CallbackListener
 import com.bijgepast.locationhunter.models.HintModel
 import com.bijgepast.locationhunter.models.RiddleModel
-import okhttp3.RequestBody
 
 class DataManager : LoadingAndSaving {
     companion object {
@@ -17,7 +16,7 @@ class DataManager : LoadingAndSaving {
         private const val debugMode: Boolean = true
     }
 
-    fun updateDatabase(){
+    fun updateDatabase() {
         TODO("update local database with remote database")
     }
 
@@ -48,6 +47,13 @@ class DataManager : LoadingAndSaving {
             ApiHandler.getInstance(NetworkHandler.getInstance()).saveFriends(id, accept)
 
         DataBaseManager.getInstance().saveFriends(id, accept)
+    }
+
+    override fun login(username: String, password: String, listener: CallbackListener) {
+        if (!debugMode)
+            ApiHandler.getInstance(NetworkHandler.getInstance()).login(username, password, listener)
+        else
+            DataBaseManager.getInstance().login(username, password, listener)
     }
 
 

@@ -40,7 +40,6 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
         if (this.overviewViewModel.getRiddles().value == null || this.overviewViewModel.getRiddles().value!!.isEmpty()) {
             Thread {
                 val dbManager = DataBaseManager.getInstance()
-                dbManager.createDB(this)
                 this.overviewViewModel.setRiddles(dbManager.getRiddles())
             }.start()
         }

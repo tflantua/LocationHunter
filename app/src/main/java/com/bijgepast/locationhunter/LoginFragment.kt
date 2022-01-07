@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment
 import com.bijgepast.locationhunter.databinding.FragmentLoginBinding
 import com.bijgepast.locationhunter.interfaces.CallbackListener
 import com.bijgepast.locationhunter.models.LoginModel
-import com.bijgepast.locationhunter.utils.ApiHandler
-import com.bijgepast.locationhunter.utils.NetworkHandler
+import com.bijgepast.locationhunter.utils.DataManager
 import com.google.gson.JsonObject
 
 class LoginFragment : Fragment(), CallbackListener {
@@ -38,7 +37,7 @@ class LoginFragment : Fragment(), CallbackListener {
         val usernamBox = binding?.UserName
         val passwordBox = binding?.Password
 
-        ApiHandler.getInstance(NetworkHandler.getInstance())
+        DataManager.getInstance()
             .login(usernamBox?.text.toString(), passwordBox?.text.toString(), this)
     }
 
@@ -60,6 +59,7 @@ class LoginFragment : Fragment(), CallbackListener {
         val username: String = json.get("Name").asString
         val score: Int = json.get("Score").asInt
         val key: String = json.get("Key").asString
+        val id: Int = json.get("ID").asInt
 
         val sharedPref: SharedPreferences =
             this.requireActivity().getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
@@ -68,6 +68,7 @@ class LoginFragment : Fragment(), CallbackListener {
             .putString("Name", username)
             .putInt("Score", score)
             .putString("Key", key)
+            .putInt("Id", id)
             .apply()
 
         val intent = Intent(this.requireContext(), OverviewActivity::class.java)

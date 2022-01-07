@@ -21,8 +21,8 @@ class ApiHandler : LoadingAndSaving {
         }
     }
 
-    fun login(username: String, password: String, listener: CallbackListener) : Thread {
-        val t = Thread {
+    override fun login(username: String, password: String, listener: CallbackListener) {
+        Thread {
             val rb = FormBody.Builder()
                 .add("userName", username)
                 .add("password", password)
@@ -31,9 +31,7 @@ class ApiHandler : LoadingAndSaving {
             val response = networkHandler?.POST("loginRequest.php", rb)
             if (response != null) this.loginHandler(response, listener)
             else listener.onFailure("Er is iets fout gegaan.")
-        }
-        t.start()
-        return t
+        }.start()
     }
 
     private fun loginHandler(jsonString: String, listener: CallbackListener) {

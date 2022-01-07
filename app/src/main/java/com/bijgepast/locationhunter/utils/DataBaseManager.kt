@@ -6,9 +6,13 @@ import com.bijgepast.locationhunter.database.AppDatabase
 import com.bijgepast.locationhunter.database.dao.*
 import com.bijgepast.locationhunter.database.entities.*
 import com.bijgepast.locationhunter.enums.DistanceStatus
+import com.bijgepast.locationhunter.interfaces.CallbackListener
 import com.bijgepast.locationhunter.models.HintModel
 import com.bijgepast.locationhunter.models.LocationModel
 import com.bijgepast.locationhunter.models.RiddleModel
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
 import timber.log.Timber
 
 class DataBaseManager() : LoadingAndSaving {
@@ -126,12 +130,21 @@ class DataBaseManager() : LoadingAndSaving {
     override fun getRiddles(): List<RiddleModel> {
         val locations = locationDao?.getLocations()
         val riddleList: MutableList<RiddleModel> = ArrayList()
+        val sharedPreferences = context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+        val userId = sharedPreferences?.getInt("Id", 0)
 
         locations?.forEach { location ->
             val hintsLocation = hintsDao?.getHintsFromLocation(location.ID)
             val hintsList: MutableList<HintModel> = ArrayList()
             hintsLocation?.forEach { hint ->
-                hintsList.add(HintModel(false, hint.description, hint.cost, hint.ID))
+                hintsList.add(
+                    HintModel(
+                        this.unlockedHintsDao?.getUnlocked(hint.ID, userId!!)!!,
+                        hint.description,
+                        hint.cost,
+                        hint.ID
+                    )
+                )
             }
 
             riddleList.add(
@@ -153,29 +166,61 @@ class DataBaseManager() : LoadingAndSaving {
     }
 
     override fun saveUnlocked(hintModel: HintModel) {
-        val userEntity = userDao?.getUser(
-            context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-                ?.getString("Name", "UserName").toString()
-        )
+        Thread {
+            val userEntity = userDao?.getUser(
+                context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                    ?.getString("Name", "UserName").toString()
+            )
+            val unlockedHintsEntity: UnlockedHintsEntity? =
+                this.unlockedHintsDao?.getUnlockedHint(hintModel.id, userEntity!!.ID)
 
-        unlockedHintsDao?.update(
-            UnlockedHintsEntity(userEntity!!.ID, hintModel.id, hintModel.getUnlocked())
-        )
+            if (unlockedHintsEntity != null) {
+                unlockedHintsEntity.unlocked = hintModel.getUnlocked()
+                unlockedHintsDao?.update(
+                    unlockedHintsEntity
+                )
+            } else {
+                val unlocked =
+                    UnlockedHintsEntity(userEntity!!.ID, hintModel.id, hintModel.getUnlocked())
+                this.unlockedHintsDao?.insert(unlocked)
+            }
+        }.start()
     }
 
     override fun saveVisited(riddleModel: RiddleModel) {
-        val userEntity = userDao?.getUser(
-            context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-                ?.getString("Name", "UserName").toString()
-        )
+        Thread {
+            val userEntity = userDao?.getUser(
+                context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+                    ?.getString("Name", "UserName").toString()
+            )
 
-        visitedLocationsDao?.update(
-            VisitedLocationsEntity(riddleModel.id, userEntity!!.ID, riddleModel.getCompleted())
-        )
+            visitedLocationsDao?.update(
+                VisitedLocationsEntity(riddleModel.id, userEntity!!.ID, riddleModel.getCompleted())
+            )
+        }.start()
     }
 
     override fun saveFriends(id: Int, accept: Boolean) {
         TODO("Not yet implemented")
+    }
+
+    override fun login(username: String, password: String, listener: CallbackListener) {
+        Thread {
+            val user: UserEntity? = this.userDao?.getUser(username)
+            val allusers = this.userDao?.getAllUsers()
+            if (user != null) {
+                val checkPassword = user.password
+                if (checkPassword == password) {
+                    val jsonString: String = Gson().toJson(user)
+                    val jsonObject: JsonObject = JsonParser.parseString(jsonString).asJsonObject
+                    listener.onSucces(jsonObject)
+                } else {
+                    listener.onFailure("Het wachtwoord komt niet overeen")
+                }
+            } else {
+                listener.onFailure("De user bestaat niet")
+            }
+        }.start()
     }
 
 }

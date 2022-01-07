@@ -22,7 +22,7 @@ import com.bijgepast.locationhunter.models.BaseModel
 data class UnlockedHintsEntity(
     @ColumnInfo(name = "UserID") val userID: Int,
     @ColumnInfo(name = "HintsID") val hintsID: Int,
-    @ColumnInfo(name = "unlocked") val unlocked: Boolean,
+    @ColumnInfo(name = "unlocked") var unlocked: Boolean,
 ): BaseEntity {
     override fun getModel(): BaseModel {
         TODO("Not yet implemented")

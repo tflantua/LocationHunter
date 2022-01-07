@@ -1,8 +1,6 @@
 package com.bijgepast.locationhunter.database.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
 import androidx.room.Query
 import com.bijgepast.locationhunter.database.entities.UserEntity
 
@@ -14,6 +12,9 @@ interface UserDao : BaseDao<UserEntity> {
 
     @Query("SELECT * FROM User WHERE UserName = :userName")
     fun getUser(userName: String): UserEntity?
+
+    @Query("SELECT * FROM User")
+    fun getAllUsers(): List<UserEntity>
 
     @Query("SELECT * FROM User WHERE UserName = :userName AND password = :password")
     fun login(userName: String, password: String): UserEntity?
