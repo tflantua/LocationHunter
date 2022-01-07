@@ -193,10 +193,23 @@ class DataBaseManager() : LoadingAndSaving {
                 context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
                     ?.getString("Name", "UserName").toString()
             )
+            val visitedLocationsEntity =
+                this.visitedLocationsDao?.getVisitedLocation(userEntity!!.ID, riddleModel.id)
 
-            visitedLocationsDao?.update(
-                VisitedLocationsEntity(riddleModel.id, userEntity!!.ID, riddleModel.getCompleted())
-            )
+            if (visitedLocationsEntity != null) {
+                this.visitedLocationsDao?.update(
+                    visitedLocationsEntity
+                )
+            } else {
+                this.visitedLocationsDao?.insert(
+                    VisitedLocationsEntity(
+                        riddleModel.id,
+                        userEntity!!.ID,
+                        riddleModel.getCompleted()
+                    )
+                )
+            }
+
         }.start()
     }
 
