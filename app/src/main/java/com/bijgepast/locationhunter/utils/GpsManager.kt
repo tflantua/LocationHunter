@@ -1,6 +1,7 @@
 package com.bijgepast.locationhunter.utils
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.location.Location
@@ -13,13 +14,18 @@ interface GpsCallback {
     fun updateLocation(location: Location)
 }
 
-class GpsManager(context: Activity) : LocationListener, GpsCallback {
+class GpsManager(context: Activity) : LocationListener, GpsCallback, ActivityCompat.OnRequestPermissionsResultCallback {
     private val listeners: MutableList<GpsCallback> = ArrayList()
-    private val locationManager: LocationManager =
-        getSystemService(context, LocationManager::class.java) as LocationManager
-    private var location: Location?
+    private val locationManager: LocationManager = getSystemService(context, LocationManager::class.java) as LocationManager
+    private var location: Location? = null
 
     init {
+        checkPermission(context)
+
+        addListener(this)
+    }
+
+    private fun checkPermission(context: Activity) {
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
                 context, Manifest.permission.ACCESS_COARSE_LOCATION
@@ -34,14 +40,9 @@ class GpsManager(context: Activity) : LocationListener, GpsCallback {
                 ),
                 1
             )
+        } else {
+            initialize()
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, this)
-
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-        if (location != null)
-            onLocationChanged(location!!)
-
-        addListener(this)
     }
 
     fun addListener(listener: GpsCallback) {
@@ -61,5 +62,22 @@ class GpsManager(context: Activity) : LocationListener, GpsCallback {
 
     override fun updateLocation(location: Location) {
         this.location = location
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        initialize()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun initialize() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1f, this)
+
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+        if (location != null)
+            onLocationChanged(location!!)
     }
 }
