@@ -37,24 +37,21 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
             adapter.setRouteModels(s)
         }
 
-        if (this.overviewViewModel.getRiddles().value == null || this.overviewViewModel.getRiddles().value!!.isEmpty()) {
-            Thread {
-                val dbManager = DataBaseManager.getInstance()
-                this.overviewViewModel.setRiddles(dbManager.getRiddles())
-            }.start()
-        }
-
     }
 
     override fun onResume() {
         super.onResume()
         this.overviewViewModel.getRiddles().value?.forEach { r -> r.updateProperties() }
+        Thread {
+            val dbManager = DataBaseManager.getInstance()
+            this.overviewViewModel.setRiddles(dbManager.getRiddles())
+        }.start()
     }
 
     override fun onClick(riddle: RiddleModel) {
         Log.d(null, "Clicked on riddle")
         val intent = Intent(this, RiddleActivity::class.java)
-        intent.putExtra("riddle", riddle)
+        intent.putExtra("riddle", riddle.id)
         startActivity(intent)
     }
 }
