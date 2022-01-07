@@ -51,7 +51,7 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
     override fun onClick(riddle: RiddleModel) {
         Log.d(null, "Clicked on riddle")
         val intent = Intent(this, RiddleActivity::class.java)
-        intent.putExtra("riddle", riddle.id)
+        intent.putExtra("riddle", riddle)
         startActivity(intent)
     }
 }
