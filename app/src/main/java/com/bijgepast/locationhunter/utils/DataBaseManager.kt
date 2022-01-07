@@ -156,7 +156,13 @@ class DataBaseManager() : LoadingAndSaving {
                     hintsList.toList(),
                     location.points,
                     DistanceStatus.FROZEN,
-                    false,
+                    if (this.visitedLocationsDao?.getVisitedLocation(userId!!, location.ID) == null)
+                        false
+                    else
+                        this.visitedLocationsDao?.getVisitedLocation(
+                            userId!!,
+                            location.ID
+                        )!!.visited,
                     location.ID
                 )
             )
