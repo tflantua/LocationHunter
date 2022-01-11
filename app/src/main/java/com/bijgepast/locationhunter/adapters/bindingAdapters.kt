@@ -8,12 +8,22 @@ import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bijgepast.locationhunter.R
+import com.bijgepast.locationhunter.models.FriendModel
 import com.tomtom.online.sdk.search.location.Address
 
 
 fun startActivity(activity: Activity, url: String, flags: Int) {
     activity.startActivity(Intent.parseUri(url, flags))
+}
+
+@BindingAdapter(value = ["friendList", "resourceID"], requireAll = true)
+fun RecyclerView.setAdapter(friendList: List<FriendModel>?, resourceID: Int){
+    if(adapter == null){
+        adapter = FriendsAdapter(resourceID)
+    }
+    (adapter as FriendsAdapter).setFriendModels(friendList)
 }
 
 @BindingAdapter("isUnlocked")
