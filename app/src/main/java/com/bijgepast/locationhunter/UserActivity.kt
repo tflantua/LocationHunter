@@ -1,11 +1,11 @@
 package com.bijgepast.locationhunter
 
-import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bijgepast.locationhunter.databinding.ActivityUserBinding
+import com.bijgepast.locationhunter.utils.logOut
 import com.bijgepast.locationhunter.viewmodels.UserViewModel
 
 class UserActivity : AppCompatActivity() {
@@ -37,15 +37,6 @@ class UserActivity : AppCompatActivity() {
     }
 
     fun logOff() {
-        val sharedPreferences = getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
-        sharedPreferences.edit()
-            .remove("Name")
-            .remove("Key")
-            .remove("Score")
-            .apply()
-
-        val i = Intent(this, LoginActivity::class.java)
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(i)
+        this.logOut()
     }
 }

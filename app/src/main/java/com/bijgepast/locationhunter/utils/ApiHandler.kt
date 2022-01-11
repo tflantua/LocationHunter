@@ -1,9 +1,11 @@
 package com.bijgepast.locationhunter.utils
 
 import com.bijgepast.locationhunter.interfaces.CallbackListener
+import com.bijgepast.locationhunter.interfaces.LoadingAndSaving
 import com.bijgepast.locationhunter.interfaces.NetworkHandlerInterface
 import com.bijgepast.locationhunter.models.HintModel
 import com.bijgepast.locationhunter.models.RiddleModel
+import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
@@ -46,19 +48,58 @@ class ApiHandler : LoadingAndSaving {
         }
     }
 
-    override fun getRiddles(): List<RiddleModel> {
-        TODO("Not yet implemented")
+    override fun getRiddles(key: String): List<RiddleModel>? {
+        val response: String? =
+            networkHandler?.POST("getLocations.php", FormBody.Builder().add("Key", key).build())
+        if (response != null) {
+            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
+            val jsonStatus: StatusDataClass =
+                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
+            return if (jsonStatus.statusCode == 200) {
+                val responseData: ResponseData =
+                    Gson().fromJson(jsonArray[1].asJsonObject.toString(), ResponseData::class.java)
+
+                responseData.data
+            } else {
+                null
+            }
+        }
+        return ArrayList()
     }
 
-    override fun saveUnlocked(hintModel: HintModel) {
-        TODO("Not yet implemented")
+    override fun saveUnlocked(hintModel: HintModel, key: String): Boolean {
+        val response: String? =
+            networkHandler?.POST(
+                "saveUnlocked.php", FormBody.Builder().add("Key", key)
+                    .add("HintId", hintModel.id.toString())
+                    .build()
+            )
+        if (response != null) {
+            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
+            val jsonStatus: StatusDataClass =
+                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
+            return jsonStatus.statusCode == 200
+        }
+        return false
     }
 
-    override fun saveVisited(riddleModel: RiddleModel) {
-        TODO("Not yet implemented")
+    override fun saveVisited(riddleModel: RiddleModel, key: String): Boolean {
+        val response: String? =
+            networkHandler?.POST(
+                "saveVisited.php", FormBody.Builder().add("Key", key)
+                    .add("RiddleId", riddleModel.id.toString())
+                    .build()
+            )
+        if (response != null) {
+            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
+            val jsonStatus: StatusDataClass =
+                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
+            return jsonStatus.statusCode == 200
+        }
+        return false
     }
 
-    override fun saveFriends(id: Int, accept: Boolean) {
-        TODO("Not yet implemented")
-    }
+//    override fun saveFriends(id: Int, accept: Boolean) {
+//        TODO("Not yet implemented")
+//    }
 }

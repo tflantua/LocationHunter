@@ -76,7 +76,7 @@
                 android:id="@+id/unlock"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> hintModel.setUnlocked(true)}"
+                android:onClick="@{() -> hintModel.setUnlocked(context)}"
                 android:text="Unlock"
                 android:visibility="@{hintModel.unlocked ? View.GONE : View.VISIBLE }"
                 app:layout_constraintBottom_toBottomOf="parent"

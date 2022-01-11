@@ -1,5 +1,6 @@
 package com.bijgepast.locationhunter.models
 
+import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -19,16 +20,16 @@ import java.io.Serializable
 import kotlin.math.roundToInt
 
 
-class RiddleModel(
+open class RiddleModel(
     val locationModel: LocationModel,
-    val RiddleName: String,
+    val riddleName: String,
     val riddle: String,
     val difficulty: Int,
     val hints: List<HintModel>,
     private val points: Int,
-    private var distanceStatus: DistanceStatus,
+    private var distanceStatus: DistanceStatus = DistanceStatus.FROZEN,
     private var completed: Boolean,
-    val id: Int
+    var id: Int
 ) : BaseObservable(), Serializable, GpsCallback, SensorEventListener, BaseModel {
 
     @Bindable
@@ -37,11 +38,12 @@ class RiddleModel(
     }
 
     @Bindable
-    fun setCompleted(boolean: Boolean) {
+    fun setCompleted(context: Context) {
         if (!this.completed) {
-            this.completed = boolean
+            this.completed = true
+            val sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
 
-            DataManager.getInstance().saveVisited(this)
+            DataManager.getInstance().saveVisited(this, sharedPreferences.getString("Key", "")!!)
 
             notifyPropertyChanged(BR.completed)
         }
@@ -80,7 +82,7 @@ class RiddleModel(
         notifyPropertyChanged(BR.statusString)
     }
 
-    override fun updateLocation(location: Location) {
+    override fun updateLocation(location: Location, context: Context) {
         val floatArray = FloatArray(2)
 
         Location.distanceBetween(
@@ -102,7 +104,7 @@ class RiddleModel(
 
         this.setStatus(getStatusFromDistance(floatArray[0]))
         if (this.distanceStatus == DistanceStatus.REACHED)
-            setCompleted(true)
+            setCompleted(context)
 
         newTargetDegree = -bearingToDegrees(floatArray[1])
 

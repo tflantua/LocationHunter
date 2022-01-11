@@ -20,12 +20,16 @@ class NetworkHandler : NetworkHandlerInterface {
     private val client: OkHttpClient = OkHttpClient()
     private val address: String = "http://${NetworkHandler.address}/requests/"
 
-    override fun POST(requestString: String, body: RequestBody): String? {
-        val request = Request.Builder()
-            .url(this.address + requestString)
-            .post(body)
-            .build()
+    override fun POST(requestString: String?, body: RequestBody?): String? {
+        return try {
+            val request = Request.Builder()
+                .url(this.address + requestString)
+                .post(body!!)
+                .build()
 
-        return this.client.newCall(request).execute().body?.string()
+            this.client.newCall(request).execute().body?.string()
+        } catch (e: Exception) {
+            null
+        }
     }
 }

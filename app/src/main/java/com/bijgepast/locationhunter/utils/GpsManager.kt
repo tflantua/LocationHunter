@@ -3,6 +3,8 @@ package com.bijgepast.locationhunter.utils
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -11,29 +13,31 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 
 interface GpsCallback {
-    fun updateLocation(location: Location)
+    fun updateLocation(location: Location, context: Context)
 }
 
-class GpsManager(context: Activity) : LocationListener, GpsCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+class GpsManager(context: Context) : LocationListener, GpsCallback,
+    ActivityCompat.OnRequestPermissionsResultCallback, ContextWrapper(context) {
     private val listeners: MutableList<GpsCallback> = ArrayList()
-    private val locationManager: LocationManager = getSystemService(context, LocationManager::class.java) as LocationManager
+    private val locationManager: LocationManager =
+        getSystemService(context, LocationManager::class.java) as LocationManager
     private var location: Location? = null
 
     init {
-        checkPermission(context)
+        checkPermission()
 
         addListener(this)
     }
 
-    private fun checkPermission(context: Activity) {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
+    private fun checkPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                context, Manifest.permission.ACCESS_COARSE_LOCATION
+                this, Manifest.permission.ACCESS_COARSE_LOCATION
             )
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                context,
+                (this.baseContext as Activity),
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION
@@ -48,7 +52,7 @@ class GpsManager(context: Activity) : LocationListener, GpsCallback, ActivityCom
     fun addListener(listener: GpsCallback) {
         this.listeners.add(listener)
         if (location != null)
-            listener.updateLocation(location!!)
+            listener.updateLocation(location!!, this)
     }
 
     fun removeListener(listener: GpsCallback): Boolean {
@@ -57,10 +61,10 @@ class GpsManager(context: Activity) : LocationListener, GpsCallback, ActivityCom
 
 
     override fun onLocationChanged(location: Location) {
-        this.listeners.forEach { l -> l.updateLocation(location) }
+        this.listeners.forEach { l -> l.updateLocation(location, this) }
     }
 
-    override fun updateLocation(location: Location) {
+    override fun updateLocation(location: Location, context: Context) {
         this.location = location
     }
 

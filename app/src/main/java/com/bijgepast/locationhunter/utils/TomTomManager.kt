@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.location.Location
-import androidx.core.content.res.ResourcesCompat
 import com.bijgepast.locationhunter.R
 import com.tomtom.online.sdk.common.location.LatLng
 import com.tomtom.online.sdk.common.location.LatLngBias
@@ -38,7 +37,7 @@ class TomTomManager(private val context: Context, private val gpsManager: GpsMan
         gpsManager.addListener(this)
     }
 
-    override fun updateLocation(location: Location) {
+    override fun updateLocation(location: Location, context: Context) {
         tomtomMap?.centerOnMyLocation()
         this.location = location
     }

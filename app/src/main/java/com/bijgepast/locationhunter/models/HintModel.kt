@@ -1,16 +1,14 @@
 package com.bijgepast.locationhunter.models
 
+import android.content.Context
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import com.bijgepast.locationhunter.database.entities.BaseEntity
-import com.bijgepast.locationhunter.database.entities.HintsEntity
-import com.bijgepast.locationhunter.utils.DataBaseManager
 import com.bijgepast.locationhunter.utils.DataManager
-import org.w3c.dom.Entity
 import java.io.Serializable
 
-class HintModel(
+open class HintModel(
     private var unLocked: Boolean,
     val hint: String,
     val cost: Int,
@@ -24,13 +22,14 @@ class HintModel(
     }
 
     @Bindable
-    fun setUnlocked(unlocked: Boolean) {
+    fun setUnlocked(context: Context) {
         if (this.unLocked)
             return
-        this.unLocked = unlocked
+        this.unLocked = true
+        val sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
 
         if(this.unLocked)
-            DataManager.getInstance().saveUnlocked(this)
+            DataManager.getInstance().saveUnlocked(this, sharedPreferences.getString("Key", "")!!)
 
         notifyPropertyChanged(BR.unlocked)
         notifyPropertyChanged(BR.points)

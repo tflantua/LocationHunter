@@ -7,6 +7,7 @@ import com.bijgepast.locationhunter.database.dao.*
 import com.bijgepast.locationhunter.database.entities.*
 import com.bijgepast.locationhunter.enums.DistanceStatus
 import com.bijgepast.locationhunter.interfaces.CallbackListener
+import com.bijgepast.locationhunter.interfaces.LoadingAndSaving
 import com.bijgepast.locationhunter.models.HintModel
 import com.bijgepast.locationhunter.models.LocationModel
 import com.bijgepast.locationhunter.models.RiddleModel
@@ -127,7 +128,7 @@ class DataBaseManager() : LoadingAndSaving {
     }
     //endregion
 
-    override fun getRiddles(): List<RiddleModel> {
+    override fun getRiddles(key: String): List<RiddleModel>? {
         val locations = locationDao?.getLocations()
         val riddleList: MutableList<RiddleModel> = ArrayList()
         val sharedPreferences = context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
@@ -171,7 +172,7 @@ class DataBaseManager() : LoadingAndSaving {
         return riddleList.toList()
     }
 
-    override fun saveUnlocked(hintModel: HintModel) {
+    override fun saveUnlocked(hintModel: HintModel, key: String): Boolean {
         Thread {
             val userEntity = userDao?.getUser(
                 context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
@@ -191,9 +192,10 @@ class DataBaseManager() : LoadingAndSaving {
                 this.unlockedHintsDao?.insert(unlocked)
             }
         }.start()
+        return true
     }
 
-    override fun saveVisited(riddleModel: RiddleModel) {
+    override fun saveVisited(riddleModel: RiddleModel, key: String): Boolean {
         Thread {
             val userEntity = userDao?.getUser(
                 context?.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
@@ -217,11 +219,12 @@ class DataBaseManager() : LoadingAndSaving {
             }
 
         }.start()
+        return true
     }
 
-    override fun saveFriends(id: Int, accept: Boolean) {
-        TODO("Not yet implemented")
-    }
+//    override fun saveFriends(id: Int, accept: Boolean) {
+//        TODO("Not yet implemented")
+//    }
 
     override fun login(username: String, password: String, listener: CallbackListener) {
         Thread {
