@@ -1,5 +1,6 @@
 package com.bijgepast.locationhunter
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -37,6 +38,13 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
         val adapter = RiddleAdapter(this)
 
         riddleRecyclerView.adapter = adapter
+
+        binding.accountInfo.setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.Name.text =  getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("Name", "")!!
 
         overviewViewModel.getRiddles().observe(this) { s ->
             adapter.setRouteModels(s)

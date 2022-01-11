@@ -1,5 +1,6 @@
 package com.bijgepast.locationhunter
 
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
@@ -42,6 +43,11 @@ class RiddleActivity : AppCompatActivity() {
 
         binding = ActivityRiddleBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.accountInfo.setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.activity = this
         binding.riddleModel = this.riddleViewModel.getRiddle().value

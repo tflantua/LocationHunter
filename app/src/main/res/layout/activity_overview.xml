@@ -29,7 +29,6 @@
                 android:adjustViewBounds="true"
                 android:background="@android:color/transparent"
                 android:scaleType="fitCenter"
-                android:onClick="@{() -> BindingAdaptersKt.startActivity(activity, `#Intent;component=com.bijgepast.locationhunter/.UserActivity;end`, 0)}"
                 android:src="@drawable/ic_twotone_account_circle_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent="0.1"
@@ -37,6 +36,7 @@
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <TextView
+                android:id="@+id/Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/UserName"
