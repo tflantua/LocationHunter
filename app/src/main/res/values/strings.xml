@@ -50,4 +50,7 @@
     <string name="hintwithnumber">Hint 1</string>
     <string name="search">search</string>
     <string name="close">close</string>
+    <string name="InvalidUsername">gebruikersnaam niet geldig</string>
+    <string name="PasswordMisMatch">wachtwoorden komen niet overeen</string>
+    <string name="InvalidPassword">Wachtwoord niet geldig</string>
 </resources>

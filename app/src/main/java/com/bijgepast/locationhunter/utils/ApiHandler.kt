@@ -48,6 +48,31 @@ class ApiHandler : LoadingAndSaving {
         }
     }
 
+    override fun signUp(username: String, password: String, listener: CallbackListener) {
+        Thread {
+            val rb = FormBody.Builder()
+                .add("userName", username)
+                .add("password", password)
+                .build()
+
+            val response = networkHandler?.POST("signUpRequest.php", rb)
+            if (response != null) this.signUpHandler(response, listener)
+            else listener.onFailure("Er is iets fout gegaan.")
+        }.start()
+    }
+
+    private fun signUpHandler(jsonString: String, listener: CallbackListener) {
+        val json: JsonArray = JsonParser.parseString(jsonString).asJsonArray
+        val jsonStatus: JsonObject = json.get(0).asJsonObject
+
+        if (jsonStatus.get("statusCode").asInt == 200) {
+            val jsonUserInfo = json.get(1).asJsonObject
+            listener.onSucces(jsonUserInfo)
+        } else {
+            listener.onFailure("StatusCode: ${jsonStatus.get("statusCode").asInt} \n Er is iets niet helemaal goed gegaan.")
+        }
+    }
+
     override fun getRiddles(key: String): List<RiddleModel>? {
         val response: String? =
             networkHandler?.POST("getLocations.php", FormBody.Builder().add("Key", key).build())

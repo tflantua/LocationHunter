@@ -245,4 +245,17 @@ class DataBaseManager() : LoadingAndSaving {
         }.start()
     }
 
+    override fun signUp(username: String, password: String, listener: CallbackListener) {
+        if (this.userDao?.getUser(username) == null)
+            this.userDao?.insert(
+                UserEntity(
+                    Math.random().toInt(),
+                    0,
+                    username,
+                    password,
+                    (Math.random() * 1000 + Math.random()).toString()
+                )
+            )
+    }
+
 }

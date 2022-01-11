@@ -10,4 +10,5 @@ interface LoadingAndSaving {
     fun saveVisited(riddleModel: RiddleModel, key: String): Boolean
     //fun saveFriends(id: Int, accept: Boolean)
     fun login(username: String, password: String, listener: CallbackListener)
+    fun signUp(username: String, password: String, listener: CallbackListener)
 }
