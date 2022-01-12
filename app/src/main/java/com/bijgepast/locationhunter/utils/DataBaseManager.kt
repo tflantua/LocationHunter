@@ -246,16 +246,32 @@ class DataBaseManager() : LoadingAndSaving {
     }
 
     override fun signUp(username: String, password: String, listener: CallbackListener) {
-        if (this.userDao?.getUser(username) == null)
+        if (this.userDao?.getUser(username) == null) {
+            var Id = 0
+            val allusers = this.userDao?.getAllUsers()
+            allusers?.forEach { userEntity -> if(userEntity.ID >= Id) Id = userEntity.ID + 1 }
+
             this.userDao?.insert(
                 UserEntity(
-                    Math.random().toInt(),
+                    Id,
                     0,
                     username,
                     password,
                     (Math.random() * 1000 + Math.random()).toString()
                 )
             )
+
+            val user: UserEntity? = this.userDao?.getUser(username)
+            if (user != null) {
+                val jsonString: String = Gson().toJson(user)
+                val jsonObject: JsonObject = JsonParser.parseString(jsonString).asJsonObject
+                listener.onSucces(jsonObject)
+            }else{
+                listener.onFailure("er ging iets mis")
+            }
+        }else{
+            listener.onFailure("User bestaat al")
+        }
     }
 
 }

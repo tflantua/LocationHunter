@@ -26,15 +26,16 @@ class UserActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this._binding = ActivityUserBinding.inflate(layoutInflater)
+        setContentView(this.binding.root)
+
         this.userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
         if (userViewModel.getUserModel().value == null) {
             this.userViewModel.setUserMode(applicationContext)
         }
 
-        super.onCreate(savedInstanceState)
-        this._binding = ActivityUserBinding.inflate(layoutInflater)
-        setContentView(this.binding.root)
 
         binding.activity = this
         binding.userModel = userViewModel.getUserModel().value
@@ -43,8 +44,6 @@ class UserActivity : AppCompatActivity() {
         mapView = binding.tomtomMap
         mapView.addOnMapReadyCallback { map ->
             map.isMyLocationEnabled = true
-            map.markerSettings.markerBalloonViewAdapter =
-                SingleLayoutBalloonViewAdapter(R.layout.balloon_layout)
             map.markerSettings.setMarkersClustering(true)
 
 
@@ -78,7 +77,10 @@ class UserActivity : AppCompatActivity() {
                                     riddleModel.locationModel.east
                                 )
                             val markerBuilder = MarkerBuilder(location)
-                                .markerBalloon(BaseMarkerBalloon())
+                                .markerBalloon(SimpleMarkerBalloon(riddleModel.riddleName))
+                                .iconAnchor(MarkerAnchor.Bottom)
+                                .tag(riddleModel.id)
+                                .decal(true)
                             val marker = map.addMarker(markerBuilder)
                             map.markerSettings.updateMarkerIcon(marker, icon)
                         }

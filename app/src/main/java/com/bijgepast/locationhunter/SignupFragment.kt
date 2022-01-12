@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bijgepast.locationhunter.databinding.FragmentSignupBinding
 import com.bijgepast.locationhunter.interfaces.CallbackListener
@@ -39,26 +41,36 @@ class SignupFragment : Fragment(), CallbackListener {
         val userName = binding?.UserName?.text.toString()
         val password = binding?.Password?.text.toString()
         val verifyPassword = binding?.VerifyPassword?.text.toString()
-        var verificationSuccessful = true
+        var errorMessage: String = ""
 
         if (userName.isEmpty()) {
-            Snackbar.make(this.requireView(), R.string.InvalidUsername, Snackbar.LENGTH_LONG).show()
-            binding?.UserName?.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.mainRed);
-            verificationSuccessful = false
+            errorMessage = buildErrorMessage(errorMessage, R.string.InvalidUsername)
+            binding?.UserName?.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.mainRed);
         }
         if (password.isEmpty()) {
-            Snackbar.make(this.requireView(), R.string.InvalidPassword, Snackbar.LENGTH_LONG).show()
-            binding?.Password?.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.mainRed);
-            verificationSuccessful = false
+            errorMessage = buildErrorMessage(errorMessage, R.string.InvalidPassword)
+            binding?.Password?.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.mainRed);
         }
-        if (verifyPassword != verifyPassword) {
-            Snackbar.make(this.requireView(), R.string.PasswordMisMatch, Snackbar.LENGTH_LONG).show()
-            binding?.VerifyPassword?.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.mainRed);
-            verificationSuccessful = false
+        if (verifyPassword.isEmpty() || password != verifyPassword) {
+            errorMessage = buildErrorMessage(errorMessage, R.string.PasswordMisMatch)
+            binding?.VerifyPassword?.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.mainRed);
         }
 
-        if (verificationSuccessful)
-            DataManager.getInstance().signUp(userName, password, this)
+
+        if (errorMessage.isEmpty())
+            Thread { DataManager.getInstance().signUp(userName, password, this) }.start()
+        else
+            Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun buildErrorMessage(currentMessage: String, stringId: Int) : String {
+        return if(currentMessage.isNotEmpty()){
+            currentMessage + getString(R.string.MessageSeperator) + getString(stringId)
+        }else
+            getString(stringId)
     }
 
     override fun onDestroyView() {

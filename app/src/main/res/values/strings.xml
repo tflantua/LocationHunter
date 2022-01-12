@@ -53,4 +53,5 @@
     <string name="InvalidUsername">gebruikersnaam niet geldig</string>
     <string name="PasswordMisMatch">wachtwoorden komen niet overeen</string>
     <string name="InvalidPassword">Wachtwoord niet geldig</string>
+    <string name="MessageSeperator">,\n</string>
 </resources>

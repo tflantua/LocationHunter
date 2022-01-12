@@ -12,6 +12,9 @@ import com.bijgepast.locationhunter.viewmodels.FriendsViewModel
 class FriendsActivty : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //super needs to be called before on set content view else the theme wont render properly
+        super.onCreate(savedInstanceState)
+
         val friendsViewModel = FriendsViewModel()
         if (friendsViewModel.getFriends().isEmpty())
             friendsViewModel.setFriends(
@@ -22,6 +25,7 @@ class FriendsActivty : AppCompatActivity() {
             )
 
         val binding = ActivityFriendsBinding.inflate(layoutInflater)
+
         setContentView(binding.root)
 
         binding.Name.text = getSharedPreferences("UserInfo", Context.MODE_PRIVATE).getString("Name", "")!!
@@ -40,6 +44,5 @@ class FriendsActivty : AppCompatActivity() {
 
         }
 
-        super.onCreate(savedInstanceState)
     }
 }
