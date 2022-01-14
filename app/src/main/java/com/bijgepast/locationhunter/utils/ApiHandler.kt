@@ -56,7 +56,7 @@ class ApiHandler : LoadingAndSaving {
                 .build()
 
             val response = networkHandler?.POST("SignupRequest.php", rb)
-            if (response != null) this.signUpHandler(response, listener)
+            if (response != null) this.signupHandler(response, listener)
             else listener.onFailure("Er is iets fout gegaan.")
         }.start()
     }
