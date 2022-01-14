@@ -55,8 +55,7 @@ class LoginFragment : Fragment(), CallbackListener {
     }
 
     override fun onSucces(obj: Any) {
-        var json: JsonObject = obj as JsonObject
-        json = json.get("data").asJsonObject
+        val json: JsonObject = obj as JsonObject
         val username: String = json.get("Name").asString
         val score: Int = json.get("Score").asInt
         val key: String = json.get("Key").asString
