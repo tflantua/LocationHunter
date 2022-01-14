@@ -16,9 +16,10 @@ import org.mockito.Mock
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
-private const val FAKE_ResponseForLogin =
+private const val FAKE_LOGIN_SUCCESSFUL_RESPONSE =
     "[{statusCode: 200 }, { Name: \"Thomas\", Score: 600, Key: \"fhjsljflasdjlfjlfjlksjfvj\"}]"
-private const val FAKE_failedResponse = "[{statusCode: 401 }]"
+private const val FAKE_UNAUTHORIZED_RESPONSE = "[{statusCode: 401 }]"
+private const val FAKE_USER_ALREADY_EXISTS = "[{statusCode: 104 }]"
 
 private const val FAKE_ResponseForLocations = "[{\n" +
         "statusCode: 200\n" +
@@ -68,7 +69,7 @@ class ApiHandlerTest {
 
         val mockedNetworkHandler = object : NetworkHandlerInterface {
             override fun POST(requestString: String?, body: RequestBody?): String? {
-                return FAKE_ResponseForLogin
+                return FAKE_LOGIN_SUCCESSFUL_RESPONSE
             }
         }
 
@@ -129,7 +130,7 @@ class ApiHandlerTest {
 
         val mockedNetworkHandler = object : NetworkHandlerInterface {
             override fun POST(requestString: String?, body: RequestBody?): String? {
-                return FAKE_failedResponse
+                return FAKE_UNAUTHORIZED_RESPONSE
             }
         }
 
@@ -155,6 +156,99 @@ class ApiHandlerTest {
     }
     //</editor-fold>
 
+    //<editor-fold desc="Sign up">
+    @Test
+    fun signup() {
+
+        val mockedNetworkHandler = object : NetworkHandlerInterface {
+            override fun POST(requestString: String?, body: RequestBody?): String? {
+                return FAKE_LOGIN_SUCCESSFUL_RESPONSE
+            }
+        }
+
+        var string = ""
+
+        val callback = object : CallbackListener {
+            override fun onSucces(obj: Any) {
+                string = successString
+            }
+
+            override fun onFailure(obj: Any) {
+                string = failString
+            }
+
+        }
+
+        ApiHandler.getInstance(mockedNetworkHandler).signup("Thomas", "Welkom01", callback)
+
+        while (string.isEmpty()) {
+            Thread.sleep(100)
+        }
+
+        assertEquals(string, successString)
+    }
+
+    @Test
+    fun signupFailed() {
+
+        val mockedNetworkHandler = object : NetworkHandlerInterface {
+            override fun POST(requestString: String?, body: RequestBody?): String? {
+                return null
+            }
+        }
+
+        var string = ""
+
+        val callback = object : CallbackListener {
+            override fun onSucces(obj: Any) {
+                string = failString
+            }
+
+            override fun onFailure(obj: Any) {
+                string = successString
+            }
+
+        }
+        ApiHandler.getInstance(mockedNetworkHandler).signup("Thomas", "Welkom01", callback)
+
+        while (string.isEmpty()) {
+            Thread.sleep(100)
+        }
+
+        assertEquals(string, successString)
+    }
+
+    @Test
+    fun signupFailedUserAlreadyExist() {
+
+        val mockedNetworkHandler = object : NetworkHandlerInterface {
+            override fun POST(requestString: String?, body: RequestBody?): String? {
+                return FAKE_USER_ALREADY_EXISTS
+            }
+        }
+
+        var string = ""
+
+        val callback = object : CallbackListener {
+            override fun onSucces(obj: Any) {
+                string = failString
+            }
+
+            override fun onFailure(obj: Any) {
+                string = successString
+            }
+
+        }
+        ApiHandler.getInstance(mockedNetworkHandler).signup("Thomas", "Welkom01", callback)
+
+        while (string.isEmpty()) {
+            Thread.sleep(100)
+        }
+
+        assertEquals(string, successString)
+    }
+    //</editor-fold>
+
     //<editor-fold desc="getRiddles">
     @Test
     fun getRiddlesWithCorrectKey() {
@@ -170,7 +264,7 @@ class ApiHandlerTest {
     @Test
     fun getRiddlesWithUncorrectKey() {
         `when`(mockNetworkHander2.POST(eq("getLocations.php"), any(RequestBody::class.java)))
-            .thenReturn(FAKE_failedResponse)
+            .thenReturn(FAKE_UNAUTHORIZED_RESPONSE)
 
         apiHandler = ApiHandler.getInstance(mockNetworkHander2)
         val result: List<RiddleModel>? = apiHandler.getRiddles("INCORRECT_KEY")
@@ -205,7 +299,7 @@ class ApiHandlerTest {
     @Test
     fun saveVisitedUncorrectKey() {
         `when`(mockNetworkHander2.POST(eq("saveVisited.php"), any(RequestBody::class.java)))
-            .thenReturn(FAKE_failedResponse)
+            .thenReturn(FAKE_UNAUTHORIZED_RESPONSE)
 
         apiHandler = ApiHandler.getInstance(mockNetworkHander2)
         val result: Boolean = apiHandler.saveVisited(mockRiddleModel, "INCORRECT_KEY")
@@ -240,7 +334,7 @@ class ApiHandlerTest {
     @Test
     fun saveUnlockedWithUncorrectKey() {
         `when`(mockNetworkHander2.POST(eq("saveUnlocked.php"), any(RequestBody::class.java)))
-            .thenReturn(FAKE_failedResponse)
+            .thenReturn(FAKE_UNAUTHORIZED_RESPONSE)
 
         apiHandler = ApiHandler.getInstance(mockNetworkHander2)
         val result: Boolean = apiHandler.saveUnlocked(mockHintModel, "CORRECT_KEY")

@@ -56,11 +56,11 @@ class DataManager : LoadingAndSaving {
             DataBaseManager.getInstance().login(username, password, listener)
     }
 
-    override fun signUp(username: String, password: String, listener: CallbackListener) {
+    override fun signup(username: String, password: String, listener: CallbackListener) {
         if(!debugMode)
-            ApiHandler.getInstance(NetworkHandler.getInstance()).signUp(username, password, listener)
+            ApiHandler.getInstance(NetworkHandler.getInstance()).signup(username, password, listener)
             else
-            DataBaseManager.getInstance().signUp(username, password, listener)
+            DataBaseManager.getInstance().signup(username, password, listener)
     }
 
 

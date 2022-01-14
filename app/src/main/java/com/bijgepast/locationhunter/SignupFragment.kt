@@ -4,12 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.bijgepast.locationhunter.databinding.FragmentSignupBinding
 import com.bijgepast.locationhunter.interfaces.CallbackListener
@@ -61,7 +59,7 @@ class SignupFragment : Fragment(), CallbackListener {
 
 
         if (errorMessage.isEmpty())
-            Thread { DataManager.getInstance().signUp(userName, password, this) }.start()
+            Thread { DataManager.getInstance().signup(userName, password, this) }.start()
         else
             Snackbar.make(this.requireView(), errorMessage, Snackbar.LENGTH_LONG).show()
     }
