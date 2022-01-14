@@ -14,7 +14,7 @@ class NetworkHandler : NetworkHandlerInterface {
             return instance!!
         }
 
-        const val address = "192.168.1.109"
+        const val address = "192.168.1.116"
     }
 
     private val client: OkHttpClient = OkHttpClient()

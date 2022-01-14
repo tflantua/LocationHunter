@@ -60,7 +60,6 @@ class OverviewActivity : AppCompatActivity(), RiddleAdapter.OnItemClick {
             }.start()
 
         }
-
     }
 
     override fun onResume() {

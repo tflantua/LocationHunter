@@ -55,7 +55,7 @@ class ApiHandler : LoadingAndSaving {
                 .add("password", password)
                 .build()
 
-            val response = networkHandler?.POST("signUpRequest.php", rb)
+            val response = networkHandler?.POST("SignupRequest.php", rb)
             if (response != null) this.signUpHandler(response, listener)
             else listener.onFailure("Er is iets fout gegaan.")
         }.start()
@@ -74,21 +74,21 @@ class ApiHandler : LoadingAndSaving {
     }
 
     override fun getRiddles(key: String): List<RiddleModel>? {
-        val response: String? =
-            networkHandler?.POST("getLocations.php", FormBody.Builder().add("Key", key).build())
-        if (response != null) {
-            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
-            val jsonStatus: StatusDataClass =
-                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
-            return if (jsonStatus.statusCode == 200) {
-                val responseData: ResponseData =
-                    Gson().fromJson(jsonArray[1].asJsonObject.toString(), ResponseData::class.java)
-
-                responseData.data
-            } else {
-                null
-            }
-        }
+//        val response: String? =
+//            networkHandler?.POST("getLocations.php", FormBody.Builder().add("Key", key).build())
+//        if (response != null) {
+//            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
+//            val jsonStatus: StatusDataClass =
+//                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
+//            return if (jsonStatus.statusCode == 200) {
+//                val responseData: ResponseData =
+//                    Gson().fromJson(jsonArray[1].asJsonObject.toString(), ResponseData::class.java)
+//
+//                responseData.data
+//            } else {
+//                null
+//            }
+//        }
         return ArrayList()
     }
 

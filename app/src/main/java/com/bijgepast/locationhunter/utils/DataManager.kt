@@ -14,7 +14,7 @@ class DataManager : LoadingAndSaving {
             return instance!!
         }
 
-        private val debugMode: Boolean = true
+        private val debugMode: Boolean = false
     }
 
     fun updateDatabase() {
