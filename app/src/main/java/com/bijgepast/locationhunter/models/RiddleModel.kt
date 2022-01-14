@@ -73,7 +73,12 @@ open class RiddleModel(
 
     @Bindable
     fun getStatusString(): String {
-        return "Status: ${this.distanceStatus.nameForEnum}"
+        return if(this.distanceStatus != null)
+            "Status: ${this.distanceStatus.nameForEnum}"
+        else{
+            this.distanceStatus = DistanceStatus.FROZEN
+            "Status: ${this.distanceStatus.nameForEnum}"
+        }
     }
 
     @Bindable
