@@ -48,7 +48,7 @@ class ApiHandler : LoadingAndSaving {
         }
     }
 
-    override fun signUp(username: String, password: String, listener: CallbackListener) {
+    override fun signup(username: String, password: String, listener: CallbackListener) {
         Thread {
             val rb = FormBody.Builder()
                 .add("userName", username)
@@ -56,12 +56,12 @@ class ApiHandler : LoadingAndSaving {
                 .build()
 
             val response = networkHandler?.POST("signUpRequest.php", rb)
-            if (response != null) this.signUpHandler(response, listener)
+            if (response != null) this.signupHandler(response, listener)
             else listener.onFailure("Er is iets fout gegaan.")
         }.start()
     }
 
-    private fun signUpHandler(jsonString: String, listener: CallbackListener) {
+    private fun signupHandler(jsonString: String, listener: CallbackListener) {
         val json: JsonArray = JsonParser.parseString(jsonString).asJsonArray
         val jsonStatus: JsonObject = json.get(0).asJsonObject
 

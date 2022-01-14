@@ -245,7 +245,7 @@ class DataBaseManager() : LoadingAndSaving {
         }.start()
     }
 
-    override fun signUp(username: String, password: String, listener: CallbackListener) {
+    override fun signup(username: String, password: String, listener: CallbackListener) {
         if (this.userDao?.getUser(username) == null) {
             var Id = 0
             val allusers = this.userDao?.getAllUsers()
