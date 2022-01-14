@@ -79,7 +79,7 @@ class UserActivity : AppCompatActivity() {
                             val markerBuilder = MarkerBuilder(location)
                                 .markerBalloon(SimpleMarkerBalloon(riddleModel.riddleName))
                                 .iconAnchor(MarkerAnchor.Bottom)
-                                .tag(riddleModel.id)
+                                .tag(riddleModel.ID)
                                 .decal(true)
                             val marker = map.addMarker(markerBuilder)
                             map.markerSettings.updateMarkerIcon(marker, icon)

@@ -48,7 +48,7 @@ class EntitiyReadWriteTest {
     fun writeAndReadUserFromDatabase() {
         val user = UserEntity(1, 0, "ThomasFlantua", "Welkom01", "")
 
-        userDao.insertUser(user)
+        userDao.insert(user)
         val getUser = userDao.getUser("ThomasFlantua")
 
         Assert.assertEquals("De getUser komt niet overeen met de user", user, getUser)
@@ -59,7 +59,7 @@ class EntitiyReadWriteTest {
     fun writeAndReadLocationFromDatabase() {
         val location = LocationEntity(1, 12.0, 15.10, "HOHOHO", "Kerstman", "Noordpool", 300, 6)
 
-        locationDao.insertLocation(location)
+        locationDao.insert(location)
         val getLocation = locationDao.getLocation(1)
 
         Assert.assertEquals(
@@ -78,7 +78,7 @@ class EntitiyReadWriteTest {
         var exception: java.lang.Exception? = null
 
         try {
-            hintsDao.insertHint(wrongHint)
+            hintsDao.insert(wrongHint)
         } catch (e: java.lang.Exception) {
             exception = e
         }
@@ -92,7 +92,7 @@ class EntitiyReadWriteTest {
         writeAndReadLocationFromDatabase()
 
         val hint = HintsEntity(1, 1, "Ja toch", 300)
-        hintsDao.insertHint(hint)
+        hintsDao.insert(hint)
 
         val getHint = hintsDao.getTotalHints(1)
         Assert.assertEquals("Het aantal hints komt niet overeen", 1, getHint)
@@ -108,7 +108,7 @@ class EntitiyReadWriteTest {
         var exception: java.lang.Exception? = null
 
         try {
-            unlockedHintsDao.insertUnlockedHints(wrongUnlockedHint)
+            unlockedHintsDao.insert(wrongUnlockedHint)
         } catch (e: java.lang.Exception) {
             exception = e
         }
@@ -127,7 +127,7 @@ class EntitiyReadWriteTest {
         var exception: java.lang.Exception? = null
 
         try {
-            unlockedHintsDao.insertUnlockedHints(unlockedHint)
+            unlockedHintsDao.insert(unlockedHint)
         } catch (e: java.lang.Exception) {
             exception = e
         }

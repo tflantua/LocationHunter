@@ -25,22 +25,23 @@ open class RiddleModel(
     val riddleName: String,
     val riddle: String,
     val difficulty: Int,
-    val hints: List<HintModel>,
+    val hintsList: List<HintModel> = ArrayList(),
     private val points: Int,
+    @Transient
     private var distanceStatus: DistanceStatus = DistanceStatus.FROZEN,
-    private var completed: Boolean,
-    var id: Int
+    private var visited: Boolean,
+    var ID: Int
 ) : BaseObservable(), Serializable, GpsCallback, SensorEventListener, BaseModel {
 
     @Bindable
     fun getCompleted(): Boolean {
-        return this.completed
+        return this.visited
     }
 
     @Bindable
     fun setCompleted(context: Context) {
-        if (!this.completed) {
-            this.completed = true
+        if (!this.visited) {
+            this.visited = true
             val sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
 
             DataManager.getInstance().saveVisited(this, sharedPreferences.getString("Key", "")!!)
@@ -52,7 +53,7 @@ open class RiddleModel(
     @Bindable
     fun getPoints(): Int {
         var points = this.points
-        this.hints.forEach { hintModel ->
+        this.hintsList.forEach { hintModel ->
             if (hintModel.getUnlocked())
                 points -= hintModel.cost
         }

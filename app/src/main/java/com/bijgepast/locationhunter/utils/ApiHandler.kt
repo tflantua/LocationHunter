@@ -74,29 +74,33 @@ class ApiHandler : LoadingAndSaving {
     }
 
     override fun getRiddles(key: String): List<RiddleModel>? {
-//        val response: String? =
-//            networkHandler?.POST("getLocations.php", FormBody.Builder().add("Key", key).build())
-//        if (response != null) {
-//            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
-//            val jsonStatus: StatusDataClass =
-//                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
-//            return if (jsonStatus.statusCode == 200) {
-//                val responseData: ResponseData =
-//                    Gson().fromJson(jsonArray[1].asJsonObject.toString(), ResponseData::class.java)
-//
-//                responseData.data
-//            } else {
-//                null
-//            }
-//        }
+        val response: String? =
+            networkHandler?.POST(
+                "getLocationsRequest.php",
+                FormBody.Builder().add("Key", key).build()
+            )
+        if (response != null) {
+            val jsonArray: JsonArray = JsonParser.parseString(response).asJsonArray
+            val jsonStatus: StatusDataClass =
+                Gson().fromJson(jsonArray[0].asJsonObject.toString(), StatusDataClass::class.java)
+            return if (jsonStatus.statusCode == 200) {
+                val responseArray: String = "{data: " + jsonArray[1].asJsonArray.toString() + "}"
+                val responseData: ResponseData =
+                    Gson().fromJson(responseArray, ResponseData::class.java)
+                return responseData.data
+            } else {
+                null
+            }
+        }
         return ArrayList()
+
     }
 
     override fun saveUnlocked(hintModel: HintModel, key: String): Boolean {
         val response: String? =
             networkHandler?.POST(
                 "saveUnlocked.php", FormBody.Builder().add("Key", key)
-                    .add("HintId", hintModel.id.toString())
+                    .add("HintId", hintModel.ID.toString())
                     .build()
             )
         if (response != null) {
@@ -112,7 +116,7 @@ class ApiHandler : LoadingAndSaving {
         val response: String? =
             networkHandler?.POST(
                 "saveVisited.php", FormBody.Builder().add("Key", key)
-                    .add("RiddleId", riddleModel.id.toString())
+                    .add("RiddleId", riddleModel.ID.toString())
                     .build()
             )
         if (response != null) {

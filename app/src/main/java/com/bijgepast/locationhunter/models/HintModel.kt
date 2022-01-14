@@ -9,26 +9,26 @@ import com.bijgepast.locationhunter.utils.DataManager
 import java.io.Serializable
 
 open class HintModel(
-    private var unLocked: Boolean,
+    private var unlocked: Boolean,
     val hint: String,
     val cost: Int,
-    val id: Int
+    val ID: Int
 ) : BaseObservable(), Serializable, BaseModel {
     private var show: Boolean = false
 
     @Bindable
     fun getUnlocked(): Boolean {
-        return unLocked;
+        return unlocked;
     }
 
     @Bindable
     fun setUnlocked(context: Context) {
-        if (this.unLocked)
+        if (this.unlocked)
             return
-        this.unLocked = true
+        this.unlocked = true
         val sharedPreferences = context.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
 
-        if(this.unLocked)
+        if(this.unlocked)
             DataManager.getInstance().saveUnlocked(this, sharedPreferences.getString("Key", "")!!)
 
         notifyPropertyChanged(BR.unlocked)

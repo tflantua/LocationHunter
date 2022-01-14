@@ -21,24 +21,8 @@ private const val FAKE_LOGIN_SUCCESSFUL_RESPONSE =
 private const val FAKE_UNAUTHORIZED_RESPONSE = "[{statusCode: 401 }]"
 private const val FAKE_USER_ALREADY_EXISTS = "[{statusCode: 104 }]"
 
-private const val FAKE_ResponseForLocations = "[{\n" +
-        "statusCode: 200\n" +
-        "},\n" +
-        "{\n" +
-        "data: \n" +
-        "[\n" +
-        "{\n" +
-        "locationModel: {north: 16, east: 55, name: \"De kuip\"},\n" +
-        "riddleName: \"Rood Wit\",\n" +
-        "riddle: \"Mooiste stadion van europa\",\n" +
-        "difficulty: 5,\n" +
-        "hints: [{unLocked: false, hint: \"Het stadion is van een voetbalclub\", cost: 200, id: 1}],\n" +
-        "points: 1000,\n" +
-        "completed: false,\n" +
-        "id: 1\n" +
-        "}\n" +
-        "]\n" +
-        "}]\n"
+private const val FAKE_ResponseForLocations = "[{\"statusCode\":200}," +
+        "[{\"ID\":\"2\",\"north\":\"0.000000\",\"east\":\"0.000000\",\"name\":\"NULL island\",\"riddleName\":\"NULL\",\"riddle\":\"0.0\",\"points\":\"400\",\"difficulty\":\"5\",\"hintsList\":[{\"hint\":\"Boven positief, onder negatief, rechts negatief, links positief\",\"ID\":\"3\",\"cost\":\"20\",\"unlocked\":false}],\"visited\":false},{\"ID\":\"1\",\"north\":\"51.893710\",\"east\":\"4.523190\",\"name\":\"De kuip\",\"riddleName\":\"\",\"riddle\":\"Het mooiste stadion van Nederland\",\"points\":\"0\",\"difficulty\":\"0\",\"hintsList\":[{\"hint\":\"Tottenham Hotspur en Atl\\u00e9tico Madrid, 1993\",\"ID\":\"1\",\"cost\":\"100\",\"unlocked\":true},{\"hint\":\"Bekend stadion Rotterdam\",\"ID\":\"2\",\"cost\":\"100\",\"unlocked\":false}],\"visited\":true}]]"
 
 private const val successString = "Logged in successfully"
 private const val failString = "Logged in failed"
@@ -50,7 +34,7 @@ class ApiHandlerTest {
     private lateinit var apiHandler: ApiHandler
 
     private var mockRiddleModel: RiddleModel = RiddleModel(
-        LocationModel(0.0,0.0, "Hoi"),
+        LocationModel(0.0, 0.0, "Hoi"),
         "Test",
         "Dit is een test",
         6,
@@ -252,18 +236,18 @@ class ApiHandlerTest {
     //<editor-fold desc="getRiddles">
     @Test
     fun getRiddlesWithCorrectKey() {
-        `when`(mockNetworkHander2.POST(eq("getLocations.php"), any(RequestBody::class.java)))
+        `when`(mockNetworkHander2.POST(eq("getLocationsRequest.php"), any(RequestBody::class.java)))
             .thenReturn(FAKE_ResponseForLocations)
 
         apiHandler = ApiHandler.getInstance(mockNetworkHander2)
         val result: List<RiddleModel>? = apiHandler.getRiddles("CORRECT_KEY")
 
-        assertEquals(1, result?.size)
+        assertEquals(2, result?.size)
     }
 
     @Test
     fun getRiddlesWithUncorrectKey() {
-        `when`(mockNetworkHander2.POST(eq("getLocations.php"), any(RequestBody::class.java)))
+        `when`(mockNetworkHander2.POST(eq("getLocationsRequest.php"), any(RequestBody::class.java)))
             .thenReturn(FAKE_UNAUTHORIZED_RESPONSE)
 
         apiHandler = ApiHandler.getInstance(mockNetworkHander2)
@@ -274,7 +258,7 @@ class ApiHandlerTest {
 
     @Test
     fun getRiddlesWithReturnNull() {
-        `when`(mockNetworkHander2.POST(eq("getLocations.php"), any(RequestBody::class.java)))
+        `when`(mockNetworkHander2.POST(eq("getLocationsRequest.php"), any(RequestBody::class.java)))
             .thenReturn(null)
 
         apiHandler = ApiHandler.getInstance(mockNetworkHander2)

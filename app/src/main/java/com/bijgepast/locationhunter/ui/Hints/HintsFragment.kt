@@ -32,7 +32,7 @@ class HintsFragment : Fragment() {
         binding.riddleModel = riddleViewModel.getRiddle().value
 
         val hintsAdapter: HintsAdapter =
-            HintsAdapter(this.riddleViewModel.getRiddle().value!!.hints)
+            HintsAdapter(this.riddleViewModel.getRiddle().value!!.hintsList)
 
         binding.hintsRecyclerview.adapter = hintsAdapter
 

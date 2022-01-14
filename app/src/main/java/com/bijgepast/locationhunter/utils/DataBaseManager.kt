@@ -179,7 +179,7 @@ class DataBaseManager() : LoadingAndSaving {
                     ?.getString("Name", "UserName").toString()
             )
             val unlockedHintsEntity: UnlockedHintsEntity? =
-                this.unlockedHintsDao?.getUnlockedHint(hintModel.id, userEntity!!.ID)
+                this.unlockedHintsDao?.getUnlockedHint(hintModel.ID, userEntity!!.ID)
 
             if (unlockedHintsEntity != null) {
                 unlockedHintsEntity.unlocked = hintModel.getUnlocked()
@@ -188,7 +188,7 @@ class DataBaseManager() : LoadingAndSaving {
                 )
             } else {
                 val unlocked =
-                    UnlockedHintsEntity(userEntity!!.ID, hintModel.id, hintModel.getUnlocked())
+                    UnlockedHintsEntity(userEntity!!.ID, hintModel.ID, hintModel.getUnlocked())
                 this.unlockedHintsDao?.insert(unlocked)
             }
         }.start()
@@ -202,7 +202,7 @@ class DataBaseManager() : LoadingAndSaving {
                     ?.getString("Name", "UserName").toString()
             )
             val visitedLocationsEntity =
-                this.visitedLocationsDao?.getVisitedLocation(userEntity!!.ID, riddleModel.id)
+                this.visitedLocationsDao?.getVisitedLocation(userEntity!!.ID, riddleModel.ID)
 
             if (visitedLocationsEntity != null) {
                 this.visitedLocationsDao?.update(
@@ -211,7 +211,7 @@ class DataBaseManager() : LoadingAndSaving {
             } else {
                 this.visitedLocationsDao?.insert(
                     VisitedLocationsEntity(
-                        riddleModel.id,
+                        riddleModel.ID,
                         userEntity!!.ID,
                         riddleModel.getCompleted()
                     )
@@ -233,7 +233,7 @@ class DataBaseManager() : LoadingAndSaving {
             if (user != null) {
                 val checkPassword = user.password
                 if (checkPassword == password) {
-                    val jsonString: String = Gson().toJson(user)
+                    val jsonString: String = "data: " + Gson().toJson(user)
                     val jsonObject: JsonObject = JsonParser.parseString(jsonString).asJsonObject
                     listener.onSucces(jsonObject)
                 } else {
@@ -249,7 +249,7 @@ class DataBaseManager() : LoadingAndSaving {
         if (this.userDao?.getUser(username) == null) {
             var Id = 0
             val allusers = this.userDao?.getAllUsers()
-            allusers?.forEach { userEntity -> if(userEntity.ID >= Id) Id = userEntity.ID + 1 }
+            allusers?.forEach { userEntity -> if (userEntity.ID >= Id) Id = userEntity.ID + 1 }
 
             this.userDao?.insert(
                 UserEntity(
@@ -263,13 +263,13 @@ class DataBaseManager() : LoadingAndSaving {
 
             val user: UserEntity? = this.userDao?.getUser(username)
             if (user != null) {
-                val jsonString: String = Gson().toJson(user)
+                val jsonString: String = "data: " + Gson().toJson(user)
                 val jsonObject: JsonObject = JsonParser.parseString(jsonString).asJsonObject
                 listener.onSucces(jsonObject)
-            }else{
+            } else {
                 listener.onFailure("er ging iets mis")
             }
-        }else{
+        } else {
             listener.onFailure("User bestaat al")
         }
     }
